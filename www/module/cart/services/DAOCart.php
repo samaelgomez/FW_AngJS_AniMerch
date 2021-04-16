@@ -23,3 +23,12 @@ function executor($query) {
 
     return $data;
 }
+
+function executorNoReturn($query) {
+    $connection = connect::con();
+    $resolve = true;
+    $res = mysqli_query($connection, $query);
+
+    connect::close($connection);
+    return $res;
+}

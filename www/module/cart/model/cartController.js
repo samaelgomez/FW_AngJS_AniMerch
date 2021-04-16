@@ -86,6 +86,7 @@ $(document).ready(function(){
     $("body").on("click", ".remove", function() {
         var el = $(this);
         el.parent().parent().addClass("removed");
+        localStorage.removeItem('cart' + el.parent().parent()[0].id);
         window.setTimeout(
         function(){
             el.parent().parent().slideUp('fast', function() { 
@@ -135,5 +136,31 @@ $(document).ready(function(){
     $("body").on("click", ".btn", function() {
         check = true;
         $(".remove").click();
+        var LSvalues = [],
+        keys = Object.keys(localStorage),
+        i = keys.length;
+        var QTvalues = [];
+
+        while ( i-- ) {
+            if (keys[i].startsWith("cart")) {
+                LSvalues.push(localStorage.getItem(keys[i]));
+                localStorage.removeItem(keys[i]);
+            }
+        }
+
+        i = keys.length;
+
+        while ( i-- ) {
+            if (keys[i].endsWith("Stock")) {
+                LSvalues.push(localStorage.getItem(keys[i]));
+                localStorage.removeItem(keys[i]);
+            }
+        }
+
+        document.querySelectorAll(".qt").forEach(element => {
+            QTvalues = [...QTvalues, [element.id, element.innerHTML]];
+        });
+
+        ajaxPromiseNoJSON("module/cart/controller/cartController.php", "POST", {action: 'substractStock', cartFigures: QTvalues});
     });
 });

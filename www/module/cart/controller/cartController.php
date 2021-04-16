@@ -17,9 +17,21 @@ function listCartItems($cartFigures) {
     return $ans;
 }
 
+function substractStock($cartFigures) {
+    foreach ($cartFigures as $key => $value) {
+        $query = "";
+        $query = "UPDATE figures SET stock = stock-".$value[1]." WHERE figureName = '".$value[0]."';";
+        executorNoReturn($query);
+    }
+}
+
 switch ($_POST['action']) {
     case 'list':
         echo json_encode(listCartItems($_POST['cartFigures']));
+        break;
+
+    case 'substractStock':
+        substractStock($_POST['cartFigures']);
         break;
     
     default:
