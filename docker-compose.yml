@@ -1,0 +1,43 @@
+version: '3' # Docker Compose version
+
+# ${} - .env variable
+
+services:
+  mysql:
+    build:
+      context: ./docker/mysql # DockerFile route
+      args:
+        mysql_version: ${MYSQL_VERSION}
+    environment: # Environment variables when installing container
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    networks:
+      - overlay
+    volumes: # Volume to avoid losing data from a container
+      - db-data:/var/lib/mysql
+    restart: unless-stopped
+
+  php:
+    build:
+      context: ./docker/php
+      args:
+        php_version: ${PHP_VERSION}
+    container_name: ${COMPOSE_PROJECT_NAME}-php
+    ports:
+      - "${PHP_PORT}:80"
+    networks:
+      - overlay
+    volumes:
+      - ./www:/var/www/html
+    links: # Causes this service to depend on the written service in order to load that written service first, avoiding errors
+      - mysql
+
+volumes:
+  db-data:
+
+networks:
+  overlay:
