@@ -5,9 +5,6 @@ $shopService = new ShopService();
 
 header('Content-type: application/json');
 switch($_SERVER['REQUEST_METHOD']){
-    case 'GET':
-        echo json_encode($shopService->getBanners());
-        break;
     case 'POST':
         if ($_POST['query']) {
             $inpText = $_POST['query'];

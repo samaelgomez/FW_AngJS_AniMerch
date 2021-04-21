@@ -1,5 +1,4 @@
 function renderBanner(image) {
-
     let banner = "";
     banner += `
     <div class="banner-item-carousel">
@@ -14,7 +13,7 @@ function renderBanner(image) {
 
 function loadCarousel() {
     $.ajax({
-        url: 'module/shop/controller/controller_shop.php',
+        url: 'module/home/controller/controller_home.php',
         type: 'GET',
         dataType: "json",
         success: function(response) {

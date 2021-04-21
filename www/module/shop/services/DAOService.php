@@ -176,22 +176,6 @@ class DAOService{
 
         return $data;
     }
-
-    function select_all_banners(): array
-    {
-        $sql = "SELECT * FROM images";
-        
-        $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
-
-        $data = [];
-        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-            $data[] = $row;
-        }
-        connect::close($conexion);
-
-        return $data;
-    }
     
     function addLikedProduct($username, $figureName)
     {

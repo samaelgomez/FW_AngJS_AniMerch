@@ -1,5 +1,7 @@
 <?php
 
+	require_once 'router/router.php';
+
 	class Constants {
 		const PAGE_HOME = 'home';
 		const PAGE_SHOP = 'shop';

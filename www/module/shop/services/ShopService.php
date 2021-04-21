@@ -74,13 +74,6 @@ class ShopService {
         return $products;
     }
 
-    public function getBanners(): array
-    {
-        $products = $this->daoService->select_all_banners();
-
-        return $products;
-    }
-
     public function addLikedProduct($username, $figureName)
     {
         $this->daoService->addLikedProduct($username, $figureName);
