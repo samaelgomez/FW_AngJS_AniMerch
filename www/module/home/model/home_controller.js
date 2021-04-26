@@ -12,16 +12,10 @@ function renderBanner(image) {
 }
 
 function loadCarousel() {
-    $.ajax({
-        url: 'module/home/controller/controller_home.php',
-        type: 'GET',
-        dataType: "json",
-        success: function(response) {
-            response.forEach(renderBanner);
-        },
-        error: function(e) {
-            console.log(e);
-        }
+    ajaxPromise("index.php?page=home&op=getBanners", "GET")
+    .then((data)=>{
+        console.log(data);
+        data.forEach(renderBanner);
     })
   }
 

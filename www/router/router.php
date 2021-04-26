@@ -1,6 +1,6 @@
 <?php
 
-require ('paths.php');
+require 'autoload.php';
 
 class router {
     private $uriModule;
@@ -17,7 +17,7 @@ class router {
 
     function __construct() {
         $this -> uriModule = ($_GET['page']) ? $_GET['page'] : 'home';
-        $this -> uriFunction = ($_GET['op']) ? $_GET['op'] : 'list';
+        $this -> uriFunction = $_GET['op'] ? $_GET['op'] : 'list';
     }
 
     function routingStart() {
@@ -32,7 +32,6 @@ class router {
         if (file_exists('resources/modules.xml')) {
             $modules = simplexml_load_file('resources/modules.xml');
             foreach ($modules as $row) {
-                
                 if (in_array($this -> uriModule, (Array) $row -> uri)) {
                     $path = MODULES_PATH . $row -> name . '/controller/controller_' . (String) $row -> name . '.class.php';
                     if (file_exists($path)) {

@@ -31,11 +31,5 @@
         <script src="utils/authUtils.js"></script>
         <script src="utils/utils.js"></script>
         <script src="module/home/model/home_controller.js"></script>
-        <script src="module/shop/model/more_visited_controller.js"></script>
-        <script src="module/shop/model/controller_shop_js.js"></script>
-        <script src="module/auth/model/authController.js"></script>
-        <script src="module/profile/model/profile.controller.js"></script>
-        <script src="module/profile/model/profile.settings.controller.js"></script>
-        <script src="module/cart/model/cartController.js"></script>
     </head>
-</html>
+<body>
