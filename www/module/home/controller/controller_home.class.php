@@ -6,6 +6,8 @@ class controller_home {
     }
 
     function getBanners() {
-        echo common::accessModel('home_model', 'getBanners') -> getResolve();
+        $json = common::accessModel('home_model', 'getBanners');
+
+        echo json_encode($json);
     }
 }

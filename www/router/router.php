@@ -24,7 +24,7 @@ class router {
         try {
             call_user_func(array($this -> loadModule(), $this -> loadFunction()));
         }catch(Exception $e) {
-            // common::loadError(); // Afegir classe
+            // common::loadError();
         }
     }
     

@@ -9,5 +9,9 @@ define ('VIEW_PATH_INC', SITE_ROOT . 'view/inc/'); // View Path Inc
 define ('VIEW_PATH_HOME', SITE_ROOT . 'module/home/view/');
 define ('MODEL_PATH_HOME', SITE_ROOT . 'module/home/model/model/');
 
-// Amigables
-define('URL_AMIGABLES', TRUE);
+// Friendly
+define('URL_FRIENDLY', TRUE);
+
+if ($_GET['op'] == 'get') {
+    echo json_encode(URL_FRIENDLY);
+}

@@ -26,6 +26,7 @@
         <!-- Additional Scripts -->
         <script src="view/js/custom.js"></script>
         <script src="view/js/owl.js"></script>
+        <script src="view/js/utils.inc.js"></script>
 
         <!-- Own JS -->
         <script src="utils/authUtils.js"></script>

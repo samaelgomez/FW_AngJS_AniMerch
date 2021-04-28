@@ -12,11 +12,12 @@ function renderBanner(image) {
 }
 
 function loadCarousel() {
-    ajaxPromise("index.php?page=home&op=getBanners", "GET")
-    .then((data)=>{
-        console.log(data);
-        data.forEach(renderBanner);
-    })
+    friendlyURL('?page=home&op=getBanners').then(function(data) {
+        ajaxPromise(data, "GET")
+        .then((data)=>{
+            data.forEach(renderBanner);
+        })
+    });
   }
 
 $(document).ready(function () {
