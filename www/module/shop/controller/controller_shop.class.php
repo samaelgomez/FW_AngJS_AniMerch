@@ -6,18 +6,33 @@ class controller_shop {
     }
 
     function showProducts() {
-        $json = common::accessModel('shop_model', 'showProducts');
+        if ($_POST['petition']) {
+            if ($_POST['petition'] == " ") {
+                $json = common::accessModel('shop_model', 'showProducts');
+            } else {
+                $json = common::accessModel('shop_model', 'showFilteredProducts', $_POST['petition']);
+            }
+        }
+
+        echo json_encode($json);
+    }
+
+    function showDetails() {
+        $where = "figureName = '".$_POST['fname']."';";
+        $json = common::accessModel('shop_model', 'showFilteredProducts', $where);
+
+        echo json_encode($json);
+    }
+
+    function addVisit() {
+        $where = "figureName = '".$_POST['upfname']."';";
+        $json = common::accessModel('shop_model', 'addVisit', $where);
 
         echo json_encode($json);
     }
 }
 
-// include (__DIR__ . '/../services/ShopService.php');
-// $shopService = new ShopService();
 
-// header('Content-type: application/json');
-// switch($_SERVER['REQUEST_METHOD']){
-//     case 'POST':
 //         if ($_POST['query']) {
 //             $inpText = $_POST['query'];
 //             $query = "SELECT * FROM figures WHERE figureName LIKE '%$inpText%'";
@@ -25,31 +40,9 @@ class controller_shop {
 //             die();
 //         }
 
-//         if ($_POST['fname']) {
-//             $where = "figureName = '".$_POST['fname']."';";
-//             echo json_encode($shopService->getFilteredProducts($where));
-//             die();
-//         }
-
-//         if ($_POST['upfname']) {
-//             $where = "figureName = '".$_POST['upfname']."';";
-//             echo json_encode($shopService->addVisit($where));
-//             die();
-//         }
-
 //         if ($_POST['order']) {
 //             $order = "ORDER BY visits DESC";
 //             echo json_encode($shopService->getOrderedProducts($order));
-//             die();
-//         }
-
-//         if ($_POST['petition']) {
-//             if ($_POST['petition'] == " ") {
-//                 echo json_encode($shopService->getProducts($_POST['loggedUser'], $_POST['userType'], $_POST['username']));
-//             } else {
-//                 echo json_encode($shopService->getFilteredProducts($_POST['petition']));
-//             }
-            
 //             die();
 //         }
 

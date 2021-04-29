@@ -32,5 +32,6 @@
         <script src="utils/authUtils.js"></script>
         <script src="utils/utils.js"></script>
         <script src="module/home/model/home_controller.js"></script>
+        <script src="module/shop/model/shop_controller.js"></script>
     </head>
 <body>

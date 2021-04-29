@@ -18,4 +18,12 @@ class shop_model {
     public function showProducts() {
         return $this -> bll -> showProducts();
     }// end_showProducts
+
+    public function showFilteredProducts($filters) {
+        return $this -> bll -> showFilteredProducts($filters);
+    }// end_showFilteredProducts
+
+    public function addVisit($filters) {
+        return $this -> bll -> addVisit($filters);
+    }// end_addVisit
 }// end_shop_model

@@ -8,4 +8,16 @@
         <name>showProducts</name>
         <uri>showProducts</uri>
     </function>
+    <function>
+        <name>showDetails</name>
+        <uri>showDetails</uri>
+    </function>
+    <function>
+        <name>addVisit</name>
+        <uri>addVisit</uri>
+    </function>
+    <function>
+        <name>showStandard</name>
+        <uri>showStandard</uri>
+    </function>
 </functions>

@@ -18,4 +18,12 @@ class shop_bll {
     public function showProducts() {
         return $this -> dao -> select_all_figures();
     }// end_showProducts
+
+    public function showFilteredProducts($filters) {
+        return $this -> dao -> select_filtered_figures($filters);
+    }// end_showFilteredProducts
+
+    public function addVisit($filters) {
+        return $this -> dao -> addVisit($filters);
+    }// end_addVisit
 }// end_shop_bll

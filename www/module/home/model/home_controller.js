@@ -13,7 +13,7 @@ function renderBanner(image) {
 
 function loadCarousel() {
     friendlyURL('?page=home&op=getBanners').then(function(data) {
-        ajaxPromise(data, "GET")
+        ajaxPromise(data, "POST")
         .then((data)=>{
             data.forEach(renderBanner);
         })
