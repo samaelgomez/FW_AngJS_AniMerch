@@ -2,8 +2,8 @@
     ////////////////////////////////////////////////
     //https://github.com/miguelangel-nubla/JWT-PHP//
     ////////////////////////////////////////////////
-    include(__DIR__ . "/../classes/JWT.php");
 
+class middleware {
     function token($action, $data) {
         $header = '{"typ":"JWT", "alg":"HS256"}';
         $secret = 'elpsycongroo';
@@ -23,3 +23,4 @@
             return $JWT;
         }
     }
+}

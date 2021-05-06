@@ -10,8 +10,7 @@
     </module>
     <module>
         <name>auth</name>
-        <uri>login</uri>
-        <uri>register</uri>
+        <uri>auth</uri>
     </module>
     <module>
         <name>cart</name>

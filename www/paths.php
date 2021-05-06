@@ -13,6 +13,10 @@ define ('MODEL_PATH_HOME', SITE_ROOT . 'module/home/model/model/');
 define ('VIEW_PATH_SHOP', SITE_ROOT . 'module/shop/view/');
 define ('MODEL_PATH_SHOP', SITE_ROOT . 'module/shop/model/model/');
 
+//Auth
+define ('VIEW_PATH_AUTH', SITE_ROOT . 'module/auth/view/');
+define ('MODEL_PATH_AUTH', SITE_ROOT . 'module/auth/model/model/');
+
 // Friendly
 define('URL_FRIENDLY', TRUE);
 

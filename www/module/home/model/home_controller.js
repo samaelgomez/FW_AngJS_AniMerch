@@ -18,7 +18,7 @@ function loadCarousel() {
             data.forEach(renderBanner);
         })
     });
-  }
+}
 
 $(document).ready(function () {
     $("#category2").hide();
@@ -34,5 +34,6 @@ $(document).ready(function () {
         $("#show_even_more").hide();
     });
 
+    printHeaderButton();
     loadCarousel();
 });

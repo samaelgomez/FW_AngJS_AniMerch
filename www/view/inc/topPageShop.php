@@ -29,8 +29,10 @@
         <script src="view/js/utils.inc.js"></script>
 
         <!-- Own JS -->
-        <script src="utils/authUtils.js"></script>
-        <script src="utils/utils.js"></script>
+        <script src="utils/authUtils.inc.js"></script>
+        <script src="utils/utils.inc.js"></script>
+        <script src="module/home/model/home_controller.js"></script>
         <script src="module/shop/model/shop_controller.js"></script>
+        <script src="module/auth/model/auth_controller.js"></script>
     </head>
 <body>
