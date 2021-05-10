@@ -8,9 +8,17 @@ class controller_shop {
     function showProducts() {
         if ($_POST['petition']) {
             if ($_POST['petition'] == " ") {
-                $json = common::accessModel('shop_model', 'showProducts');
+                if ($_POST['username'] == "") {
+                    $json = common::accessModel('shop_model', 'showProducts', "guest");
+                } else {
+                    $json = common::accessModel('shop_model', 'showProducts', $_POST['username']);
+                }
             } else {
-                $json = common::accessModel('shop_model', 'showFilteredProducts', $_POST['petition']);
+                if ($_POST['username'] == "") {
+                    $json = common::accessModel('shop_model', 'showFilteredProducts', [$_POST['petition'], 'guest']);
+                } else {
+                    $json = common::accessModel('shop_model', 'showFilteredProducts', [$_POST['petition'], $_POST['username']]);
+                }
             }
         }
 
@@ -27,6 +35,18 @@ class controller_shop {
     function addVisit() {
         $where = "figureName = '".$_POST['upfname']."';";
         $json = common::accessModel('shop_model', 'addVisit', $where);
+
+        echo json_encode($json);
+    }
+
+    function addLike() {
+        $json = common::accessModel('shop_model', 'addLike', [$_POST['username'], $_POST['figureName']]);
+
+        echo json_encode($json);
+    }
+
+    function removeLike() {
+        $json = common::accessModel('shop_model', 'removeLike', [$_POST['username'], $_POST['figureName']]);
 
         echo json_encode($json);
     }

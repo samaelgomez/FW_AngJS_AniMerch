@@ -73,10 +73,12 @@ function loadCart() {
         }
     }
 
-    ajaxPromise("module/cart/controller/cartController.php", "POST", {action: 'list', cartFigures: LSvalues})
-    .then((data)=>{
-        data.forEach(renderCartProduct);
-    })
+    friendlyURL('?page=cart&op=loadCart').then(function(data) {
+        ajaxPromise(data, "POST", {cartFigures: LSvalues})
+        .then((data)=>{
+            data.forEach(renderCartProduct);
+        });
+    });
 }
 
 $(document).ready(function(){
@@ -105,7 +107,7 @@ $(document).ready(function(){
     
     $("body").on("click", ".qt-plus", function() {
 
-        if ($(this).parent().children(".qt").html()<localStorage.getItem($(this).parent().children(".qt-plus")[0].id + 'Stock')) {
+        if ($(this).parent().children(".qt").text()<localStorage.getItem($(this).parent().children(".qt-plus")[0].id + 'Stock')) {
             
             $(this).parent().children(".qt").html(parseInt($(this).parent().children(".qt").html()) + 1);
 
@@ -161,6 +163,8 @@ $(document).ready(function(){
             QTvalues = [...QTvalues, [element.id, element.innerHTML]];
         });
 
-        ajaxPromiseNoJSON("module/cart/controller/cartController.php", "POST", {action: 'substractStock', cartFigures: QTvalues});
+        friendlyURL('?page=cart&op=substractStock').then(function(data) {
+            ajaxPromiseNoJSON(data, "POST", {cartFigures: QTvalues});
+        });
     });
 });

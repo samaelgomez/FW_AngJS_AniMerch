@@ -280,7 +280,7 @@ function addFilterEvent(array,eventType) {
 
 function loadPage(petition = "") {
   friendlyURL('?page=shop&op=showProducts').then(function(data) {
-    ajaxPromise(data, "POST", {petition: petition})
+    ajaxPromise(data, "POST", {petition: petition, username: localStorage.getItem('username')})
     .then((data)=>{
       pintar_filtros().then(result =>{
         if (result) {
@@ -311,6 +311,25 @@ window.onload = () =>{
 
   $('<h2></h2>').html(localStorage.getItem("category")).appendTo('#figure_title');
 
+  $("body").on("click", ".heartButton", function() {
+    figureNameID = this.getAttribute('id');
+    if ($(this).hasClass('active')){
+      $(this).removeClass('active');
+      friendlyURL('?page=shop&op=removeLike').then(function(data) {
+        ajaxPromise(data, "POST", {username: localStorage.getItem('username'), figureName: figureNameID});
+      });
+    } else {
+      $(this).addClass('active');
+      friendlyURL('?page=shop&op=addLike').then(function(data) {
+        ajaxPromise(data, "POST", {username: localStorage.getItem('username'), figureName: figureNameID});
+      });
+    }
+  });
+
+  $("body").on("click", ".cartButton", function() {
+    localStorage.setItem('cart' + this.id, this.id);
+  });
+
   $("body").on("click", ".profile__image", function() {
     addVisit(this.getAttribute('id'));
     loadDetails(this.getAttribute('id'));
@@ -326,72 +345,3 @@ window.onload = () =>{
     loadPage(dbpetition);
   }
 }
-
-// function loadPage(petition="") {
-//   ajaxPromise("module/shop/controller/controller_shop.php", "POST", {petition: petition, loggedUser: localStorage.getItem('token'), userType: localStorage.getItem('userType'),
-//                                                                       username: localStorage.getItem('username')})
-//   .then((data)=>{
-//     pintar_filtros().then(result =>{
-//       if (result) {
-//         let brands = document.querySelectorAll("#brand")
-//         addFilterEvent(brands,"brand")
-//         let franchises = document.querySelectorAll("#franchise")
-//         addFilterEvent(franchises,"franchise")
-//         document.getElementById("filter_button").addEventListener("click",()=>{
-//           localStorage.setItem('petition', makePetition());
-//           location.reload();
-//         })
-//       }
-//     })
-//     data.length === 0
-//                 ? document.getElementById('loadedProducts').innerHTML = '<h3>No products found!</h3>'
-//                 : data.forEach(renderProduct);
-//   })
-//   .catch((e)=>{
-//       console.log(e)
-//   })
-// }
-
-// window.onload = () =>{
-
-//   $("body").on("click", ".heartButton", function() {
-//     if ($(this).hasClass('active')){
-//       $(this).removeClass('active');
-//       activeHeart = false;
-//     }else{
-//       $(this).addClass('active');
-//       activeHeart = true;
-//     }
-//     ajaxPromiseNoJSON("module/shop/controller/controller_shop.php", "POST", {heartState: activeHeart, username: localStorage.getItem('username'), figureName: this.getAttribute('id')});
-//   });
-
-//   $("body").on("click", ".cartButton", function() {
-//     localStorage.setItem('cart' + this.id, this.id);
-//   });
-
-//   $("#search").keyup(function(){
-//     var searchText = $(this).val();
-//     if(searchText!=''){
-//         $.ajax({
-//             url: 'module/shop/controller/controller_shop.php',
-//             type: 'POST',
-//             data: {query: searchText},
-//             success: function(data) {
-//               $('#loadedProducts').empty();
-//               data.forEach(renderProduct);
-//             },
-//             error: function(e) {
-//                 console.log(e);
-//             }
-//         })
-//     } else {
-//       $('#loadedProducts').empty();
-//       loadPage(dbpetition);
-//     }
-// })
-//   printHeaderButton();
-  
-//   if (document.getElementById('profileContentContainer') != undefined) {
-//     loadProfilePage();
-//   }
-// }

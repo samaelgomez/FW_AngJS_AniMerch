@@ -20,4 +20,12 @@
         <name>showStandard</name>
         <uri>showStandard</uri>
     </function>
+    <function>
+        <name>addLike</name>
+        <uri>addLike</uri>
+    </function>
+    <function>
+        <name>removeLike</name>
+        <uri>removeLike</uri>
+    </function>
 </functions>

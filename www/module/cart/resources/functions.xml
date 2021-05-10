@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>list</name>
+        <uri>list</uri>
+    </function>
+    <function>
+        <name>loadCart</name>
+        <uri>loadCart</uri>
+    </function>
+    <function>
+        <name>substractStock</name>
+        <uri>substractStock</uri>
+    </function>
+</functions>

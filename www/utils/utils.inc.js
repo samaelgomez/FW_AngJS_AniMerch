@@ -5,6 +5,11 @@ function ajaxPromise(sUrl, sType, sData = undefined) {
             type: sType,
             dataType: "json",
             data: sData,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('authorization', localStorage.getItem('token') != undefined
+                                                                                    ? localStorage.getItem('token')
+                                                                                    : '');
+            },
         }).done((data) => {
             resolve(data);
         }).fail((jqXHR, textStatus, errorThrow) => {

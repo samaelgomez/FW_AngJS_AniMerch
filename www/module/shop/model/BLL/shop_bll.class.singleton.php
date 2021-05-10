@@ -15,8 +15,8 @@ class shop_bll {
         return self::$_instance;
     }// end_getInstance
 
-    public function showProducts() {
-        return $this -> dao -> select_all_figures();
+    public function showProducts($username) {
+        return $this -> dao -> select_all_figures($username);
     }// end_showProducts
 
     public function showFilteredProducts($filters) {
@@ -26,4 +26,12 @@ class shop_bll {
     public function addVisit($filters) {
         return $this -> dao -> addVisit($filters);
     }// end_addVisit
+
+    public function addLike($data) {
+        return $this -> dao -> addLike($data);
+    }// end_addLike
+
+    public function removeLike($data) {
+        return $this -> dao -> removeLike($data);
+    }// end_removeLike
 }// end_shop_bll

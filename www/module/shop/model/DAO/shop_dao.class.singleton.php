@@ -10,8 +10,14 @@ class shop_dao {
         return self::$_instance;
     }
 
-    public function select_all_figures() {
-        $sql = "SELECT * FROM figures ORDER BY visits DESC";
+    public function select_all_figures($username) {
+        if ($username == 'guest') {
+            $sql = "SELECT * FROM figures ORDER BY visits DESC";
+        } else {
+            $sql = "SELECT *, 
+                            IF((SELECT figureName FROM liked WHERE liked.figureName = figures.figureName AND liked.username = '".$username."') IS NULL, FALSE, TRUE) AS liked 
+                            FROM figures ORDER BY visits DESC";
+        }
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
@@ -25,9 +31,15 @@ class shop_dao {
         return $data;
     }
 
-    function select_filtered_figures($filters): array
+    function select_filtered_figures($filters)
     {
-        $sql = "SELECT * FROM figures WHERE ".$filters;
+        if ($filters[1] == 'guest') {
+            $sql = "SELECT * FROM figures WHERE ".$filters[0];
+        } else {
+            $sql = "SELECT *, 
+                            IF((SELECT figureName FROM liked WHERE liked.figureName = figures.figureName AND liked.username = '".$filters[1]."') IS NULL, FALSE, TRUE) AS liked 
+                            FROM figures WHERE ".$filters[0];
+        }
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
@@ -46,7 +58,7 @@ class shop_dao {
         return $data;
     }
 
-    function addVisit($filters): array
+    function addVisit($filters)
     {
         $sql = "UPDATE figures SET visits = visits + 1 WHERE ".$filters;
         
@@ -54,6 +66,60 @@ class shop_dao {
         $res = mysqli_query($conexion, $sql);
 
         $sql = "SELECT * FROM figures WHERE ".$filters;
+        $res = mysqli_query($conexion, $sql);
+        
+        try {
+            $data = [];
+            while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        } catch (\Throwable $th) {
+            $data = [];
+        }
+
+        connect::close($conexion);
+
+        return $data;
+    }
+
+    function addLike($data)
+    {
+        $sql = "INSERT INTO liked (figureName, username) VALUES ('".$data[1]."', '".$data[0]."');";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+        
+        $sql = "UPDATE figures SET likes = likes + 1 WHERE figureName = '".$data[1]."'";
+        $res = mysqli_query($conexion, $sql);
+
+        $sql = "SELECT * FROM figures WHERE figureName = '".$data[1]."';";
+        $res = mysqli_query($conexion, $sql);
+
+        try {
+            $data = [];
+            while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        } catch (\Throwable $th) {
+            $data = [];
+        }
+
+        connect::close($conexion);
+
+        return $data;
+    }
+
+    function removeLike($data)
+    {
+        $sql = "DELETE FROM liked WHERE figureName = '".$data[1]."' AND username = '".$data[0]."';";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+        
+        $sql = "UPDATE figures SET likes = likes - 1 WHERE figureName = '".$data[1]."'";
+        $res = mysqli_query($conexion, $sql);
+
+        $sql = "SELECT * FROM figures WHERE figureName = '".$data[1]."';";
         $res = mysqli_query($conexion, $sql);
 
         try {

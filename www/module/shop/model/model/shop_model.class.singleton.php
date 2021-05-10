@@ -15,8 +15,8 @@ class shop_model {
         return self::$_instance;
     }// end_getInstance
 
-    public function showProducts() {
-        return $this -> bll -> showProducts();
+    public function showProducts($username) {
+        return $this -> bll -> showProducts($username);
     }// end_showProducts
 
     public function showFilteredProducts($filters) {
@@ -26,4 +26,12 @@ class shop_model {
     public function addVisit($filters) {
         return $this -> bll -> addVisit($filters);
     }// end_addVisit
+
+    public function addLike($data) {
+        return $this -> bll -> addLike($data);
+    }// end_addLike
+
+    public function removeLike($data) {
+        return $this -> bll -> removeLike($data);
+    }// end_removeLike
 }// end_shop_model
