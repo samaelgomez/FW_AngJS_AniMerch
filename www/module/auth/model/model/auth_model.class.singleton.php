@@ -19,19 +19,23 @@ class auth_model {
         return $this -> bll -> login($data);
     }// end_login
 
-    public function createClient($data) {
-        return $this -> bll -> createClient($data);
-    }// end_createClient
-
     public function insertClient($data) {
         return $this -> bll -> insertClient($data);
     }// end_insertClient
 
-    public function createShop($data) {
-        return $this -> bll -> createShop($data);
-    }// end_createShop
-
     public function insertShop($data) {
         return $this -> bll -> insertShop($data);
     }// end_insertShop
+
+    public function activate($token) {
+        return $this -> bll -> activate($token);
+    }// end_activate
+
+    public function tokenForRecover($email) {
+        return $this -> bll -> tokenForRecover($email);
+    }// end_tokenForRecover
+
+    public function updatePass($data) {
+        return $this -> bll -> updatePass($data);
+    }// end_updatePass
 }// end_auth_model

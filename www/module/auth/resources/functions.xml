@@ -8,4 +8,20 @@
         <name>auth</name>
         <uri>auth</uri>
     </function>
+    <function>
+        <name>activate</name>
+        <uri>activate</uri>
+    </function>
+    <function>
+        <name>recover</name>
+        <uri>recover</uri>
+    </function>
+    <function>
+        <name>recoverPass</name>
+        <uri>recoverPass</uri>
+    </function>
+    <function>
+        <name>updatePass</name>
+        <uri>updatePass</uri>
+    </function>
 </functions>

@@ -19,19 +19,23 @@ class auth_bll {
         return $this -> dao -> login($data);
     }// end_login
 
-    public function createClient($data) {
-        return $this -> dao -> createClient($data);
-    }// end_createClient
-
     public function insertClient($data) {
         return $this -> dao -> insertClient($data);
     }// end_insertClient
 
-    public function createShop($data) {
-        return $this -> dao -> createShop($data);
-    }// end_createShop
-
     public function insertShop($data) {
         return $this -> dao -> insertShop($data);
     }// end_insertShop
+
+    public function activate($token) {
+        return $this -> dao -> activate($token);
+    }// end_activate
+
+    public function tokenForRecover($email) {
+        return $this -> dao -> tokenForRecover($email);
+    }// end_tokenForRecover
+
+    public function updatePass($data) {
+        return $this -> dao -> updatePass($data);
+    }// end_updatePass
 }// end_auth_bll

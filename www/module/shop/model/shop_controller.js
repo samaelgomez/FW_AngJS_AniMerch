@@ -344,4 +344,16 @@ window.onload = () =>{
   if (document.getElementById('loadedProducts') != undefined) {
     loadPage(dbpetition);
   }
+
+  let url = window.location.href.split('/');
+    if (url[3] == 'auth') {
+        $("#formRecover").hide();
+        $("#formRecoverPass").hide();
+        if (url[4] == 'recoverPass') {
+            $('.authForms').empty();
+            $("#reg").hide();
+            $("#log").hide();
+            $("#formRecoverPass").show();
+        }
+    }
 }

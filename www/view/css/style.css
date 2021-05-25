@@ -2828,3 +2828,13 @@ footer .inner-content p a {
 	background-color: #232323;
     border-radius: 7px;
   }
+
+  #formRecover {
+	  margin-left: 400px;
+	  margin-right: 400px;
+  }
+
+  #formRecoverPass {
+	  margin-left: 400px;
+	  margin-right: 400px;
+  }

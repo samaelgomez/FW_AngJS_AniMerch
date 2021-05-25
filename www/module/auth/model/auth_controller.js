@@ -24,6 +24,9 @@ function printHeaderButton() {
         let registerButton = document.getElementById("registerButton");
         let loginButton = document.getElementById("loginButton");
         let logoutButton = document.getElementById("logoutButton");
+        let recoverButton = document.getElementById("recoverButton");
+        let sendRecoverButton = document.getElementById("sendRecoverButton");
+        let updatePassButton = document.getElementById("updatePassButton");
         
         if(registerButton !== null) {
             registerButton.addEventListener("click",(e)=>{
@@ -44,6 +47,32 @@ function printHeaderButton() {
                 e.preventDefault();
                 formData = getFormElements(form);
                 login(formData);
+            })
+        }
+
+        if(recoverButton !== null) {
+            recoverButton.addEventListener('click',(e)=>{
+                $('.authForms').empty();
+                $("#formRecoverPass").hide();
+                $("#formRecover").show();
+            })
+        }
+
+        if(sendRecoverButton !== null) {
+            sendRecoverButton.addEventListener('click',(e)=>{
+                let email = document.getElementById('recoverFormEmail').value;
+                friendlyURL('?page=auth&op=recover').then(function(data) {
+                    ajaxPromise(data, "POST", {email: email});
+                })
+            })
+        }
+
+        if(updatePassButton !== null) {
+            updatePassButton.addEventListener('click',(e)=>{
+                let pass = document.getElementById('recoverFormPass').value;
+                friendlyURL('?page=auth&op=updatePass').then(function(data) {
+                    ajaxPromise(data, "POST", {pass: pass});
+                })
             })
         }
         
