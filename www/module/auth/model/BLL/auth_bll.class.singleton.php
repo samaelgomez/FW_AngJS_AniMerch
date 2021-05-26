@@ -38,4 +38,12 @@ class auth_bll {
     public function updatePass($data) {
         return $this -> dao -> updatePass($data);
     }// end_updatePass
+
+    public function socialLogin($data) {
+        return $this -> dao -> socialLogin($data);
+    }// end_socialLogin
+
+    public function insertSocialLogin($data) {
+        return $this -> dao -> insertSocialLogin($data);
+    }// end_insertSocialLogin
 }// end_auth_bll

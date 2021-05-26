@@ -131,4 +131,56 @@ class auth_dao {
 
         return $data;
     }
+
+    public function socialLogin($data) {
+        $sql = "";
+
+        if ($data[3] == 'google') {
+            $sql = "SELECT * FROM users WHERE email = '".$data[1]."' AND id LIKE 'GM%'";
+        } else {
+            $sql = "SELECT * FROM users WHERE email = '".$data[1]."' AND id LIKE 'GH%'";
+        }
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        if($res == true) {
+            $data = "";
+            while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+                $data = $row;
+            }
+        } else {
+            $data = null;
+        }
+
+        connect::close($conexion);
+
+        return $data;
+    }
+
+    public function insertSocialLogin($data) {
+        $sql = "";
+        $id = rand();
+
+        if ($data[0][3] == 'google') {
+            $sql = "INSERT INTO users (id, email, username, pass, avatar, activated, token)
+            VALUES ('GM".$id."', '".$data[0][1]."', '".$data[0][0]."', ' ', '".$data[0][2]."', '1', '".$data[1]."');";
+        } else {
+            $sql = "INSERT INTO users (id, email, username, pass, avatar, activated, token)
+            VALUES ('GH".$id."', '".$data[0][1]."', '".$data[0][0]."', ' ', '".$data[0][2]."', '1', '".$data[1]."');";
+        }
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        if($res == true) {
+            $data = true;
+        } else {
+            $data = null;
+        }
+
+        connect::close($conexion);
+
+        return $data;
+    }
 }

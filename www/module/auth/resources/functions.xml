@@ -24,4 +24,8 @@
         <name>updatePass</name>
         <uri>updatePass</uri>
     </function>
+    <function>
+        <name>socialLogin</name>
+        <uri>socialLogin</uri>
+    </function>
 </functions>

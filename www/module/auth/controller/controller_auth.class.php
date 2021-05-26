@@ -68,4 +68,18 @@ class controller_auth {
         $token = $url[5];
         common::accessModel('auth_model', 'updatePass', [$_POST['pass'], $token]);
     }
+
+    function socialLogin() {
+        $json = common::accessModel('auth_model', 'socialLogin', $_POST['data']);
+        if ($json == "") {
+            $token = middleware::token('encode', $_POST['data'][1]);
+            $insertOK = common::accessModel('auth_model', 'insertSocialLogin', [$_POST['data'], $token]);
+            if ($insertOK == null) {
+                echo json_encode("That user could not be inserted...");
+                die();
+            }
+        }
+        $user = common::accessModel('auth_model', 'socialLogin', $_POST['data']);
+        echo json_encode($user);
+    }
 }

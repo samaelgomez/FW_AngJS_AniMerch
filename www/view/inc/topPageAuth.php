@@ -27,6 +27,7 @@
         <script src="<?php echo SITE_PATH ?>/view/js/custom.js"></script>
         <script src="<?php echo SITE_PATH ?>/view/js/owl.js"></script>
         <script src="<?php echo SITE_PATH ?>/view/js/utils.inc.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
 
         <!-- Own JS -->
         <script src="<?php echo SITE_PATH ?>/utils/authUtils.inc.js"></script>
@@ -34,5 +35,6 @@
         <script src="<?php echo SITE_PATH ?>/module/home/model/home_controller.js"></script>
         <script src="<?php echo SITE_PATH ?>/module/shop/model/shop_controller.js"></script>
         <script src="<?php echo SITE_PATH ?>/module/auth/model/auth_controller.js"></script>
+        <script src="<?php echo SITE_PATH ?>/model/apis/apis.js"></script>
     </head>
 <body>

@@ -38,4 +38,12 @@ class auth_model {
     public function updatePass($data) {
         return $this -> bll -> updatePass($data);
     }// end_updatePass
+
+    public function socialLogin($data) {
+        return $this -> bll -> socialLogin($data);
+    }// end_socialLogin
+
+    public function insertSocialLogin($data) {
+        return $this -> bll -> insertSocialLogin($data);
+    }// end_insertSocialLogin
 }// end_auth_model

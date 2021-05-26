@@ -16,6 +16,63 @@ function getFormElements(form) {
     }
 }
 
+function socialLogin(type) {
+    var config = {
+        apiKey: apiKeySL,
+        authDomain: authDomainSL,
+        databaseURL: databaseURLSL,
+        projectId: projectIdSL,
+        storageBucket: storageBucketSL,
+        messagingSenderId: messagingSenderIdSL,
+        appId: appIdSL,
+        measurementId: measurementIdSL
+    };
+       
+    firebase.initializeApp(config);
+
+    if (type == 'google') {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('email');
+    
+        var authService = firebase.auth();
+
+        authService.signInWithPopup(provider)
+            .then(function(result) {
+                friendlyURL('?page=auth&op=socialLogin').then(function(data) {
+                    ajaxPromise(data, "POST", {data: [result.user.displayName, result.user.email, result.user.photoURL, 'google']})
+                    .then(result => {
+                        changeSession('login', {username: result.username, type: 'client', avatar: result.avatar, email: result.email, token: result.token})
+                    })
+                    .catch((e) => {
+                        console.log(e);
+                    });
+                })
+            })
+            .catch(function(e) {
+                console.log(e);
+            });
+    } else {
+        var provider = new firebase.auth.GithubAuthProvider();
+        var authService = firebase.auth();
+
+        authService.signInWithPopup(provider)
+        .then(function(result) {
+            friendlyURL('?page=auth&op=socialLogin').then(function(data) {
+                console.log(result.user);
+                ajaxPromise(data, "POST", {data: [result.user.displayName, result.user.email, result.user.photoURL, 'github']})
+                .then(result => {
+                    changeSession('login', {username: result.username, type: 'client', avatar: result.avatar, email: result.email, token: result.token})
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+            })
+        }).catch(function(e) {
+            console.log(e);
+        })
+    }
+}
+
 function printHeaderButton() {
     printHeaderAuthButton().then (result => {
         let logButton = document.getElementById('navContainer');
@@ -27,6 +84,8 @@ function printHeaderButton() {
         let recoverButton = document.getElementById("recoverButton");
         let sendRecoverButton = document.getElementById("sendRecoverButton");
         let updatePassButton = document.getElementById("updatePassButton");
+        let googleLoginButton = document.getElementById("googleLoginButton");
+        let githubLoginButton = document.getElementById("githubLoginButton");
         
         if(registerButton !== null) {
             registerButton.addEventListener("click",(e)=>{
@@ -73,6 +132,18 @@ function printHeaderButton() {
                 friendlyURL('?page=auth&op=updatePass').then(function(data) {
                     ajaxPromise(data, "POST", {pass: pass});
                 })
+            })
+        }
+
+        if(googleLoginButton !== null) {
+            googleLoginButton.addEventListener('click',(e)=>{
+                socialLogin('google');
+            })
+        }
+
+        if(githubLoginButton !== null) {
+            githubLoginButton.addEventListener('click',(e)=>{
+                socialLogin('github');
             })
         }
         
