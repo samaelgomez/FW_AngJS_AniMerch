@@ -1,7 +1,7 @@
 <?php
 
-define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . '/'); // Site Root
-define ('SITE_PATH', 'http://' . $_SERVER['HTTP_HOST']); // Site Path
+define ('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . '/backend/'); // Site Root
+define ('SITE_PATH', 'http://' . $_SERVER['HTTP_HOST'] . '/backend/'); // Site Path
 define ('MODULES_PATH', SITE_ROOT . 'module/'); // Modules Path
 define ('VIEW_PATH_INC', SITE_ROOT . 'view/inc/'); // View Path Inc
 
