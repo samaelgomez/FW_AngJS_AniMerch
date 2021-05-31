@@ -18,4 +18,8 @@ class home_model {
     public function getBanners() {
         return $this -> bll -> getBanners();
     }// end_getBanners
+
+    public function getCategories() {
+        return $this -> bll -> getCategories();
+    }// end_getCategories
 }// end_home_model

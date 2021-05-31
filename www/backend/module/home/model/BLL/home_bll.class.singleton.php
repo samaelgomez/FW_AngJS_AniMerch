@@ -18,4 +18,8 @@ class home_bll {
     public function getBanners() {
         return $this -> dao -> select_all_banners();
     }// end_getBanners
+
+    public function getCategories() {
+        return $this -> dao -> select_all_categories();
+    }// end_getCategories
 }// end_home_bll

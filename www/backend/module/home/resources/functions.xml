@@ -8,4 +8,8 @@
         <name>getBanners</name>
         <uri>getBanners</uri>
     </function>
+    <function>
+        <name>getCategories</name>
+        <uri>getCategories</uri>
+    </function>
 </functions>

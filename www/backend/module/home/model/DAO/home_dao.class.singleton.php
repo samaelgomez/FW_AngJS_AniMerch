@@ -11,7 +11,22 @@ class home_dao {
     }
 
     public function select_all_banners() {
-        $sql = "SELECT * FROM images";
+        $sql = "SELECT * FROM images WHERE name LIKE 'Banner%'";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        $data = [];
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        connect::close($conexion);
+
+        return $data;
+    }
+
+    public function select_all_categories() {
+        $sql = "SELECT * FROM images WHERE name LIKE 'Category%'";
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);

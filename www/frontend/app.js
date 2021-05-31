@@ -9,6 +9,9 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                 resolve: {
                     banners: function (services) {
                         return services.get('home','getBanners');
+                    },
+                    categories: function (services) {
+                        return services.get('home','getCategories');
                     }
                 }
             }).otherwise("/home", {

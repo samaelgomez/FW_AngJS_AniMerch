@@ -1,6 +1,10 @@
-AniMerch.controller('home_controller', function($scope, $window, banners) {
+AniMerch.controller('home_controller', function($scope, $window, banners, categories) {
+
+    let visibleCategories = 3;
+    let totalCategories = categories.length;
 
     $scope.slides = banners;
+    $scope.categories = categories.slice(0, visibleCategories);
     $scope.owlOptionsTestimonials = {
         autoPlay: 4000,
         stopOnHover: true,
@@ -9,6 +13,21 @@ AniMerch.controller('home_controller', function($scope, $window, banners) {
         items: 1
     }
 
+    angular.element($window).on('mousewheel', function() {
+        let footerHeight = document.getElementById('feet').offsetHeight;
+        let position = $window.scrollY + footerHeight;
+        let bottom = document.body.scrollHeight - $window.innerHeight;
+
+        if (position >= bottom) {
+            if (visibleCategories < totalCategories) {
+                visibleCategories += 3;
+                $scope.categories = categories.slice(0, visibleCategories);
+                $scope.$apply();
+            }else {
+                angular.element($window).off('mousewheel');
+            }
+        }
+    });
 });
 
 AniMerch.directive("owlCarousel", function() {
@@ -17,14 +36,11 @@ AniMerch.directive("owlCarousel", function() {
         transclude: false,
         link: function(scope) {
             scope.initCarousel = function(element) {
-                // provide any default options you want
                 var defaultOptions = {};
                 var customOptions = scope.$eval($(element).attr('data-options'));
-                // combine the two options objects
                 for (var key in customOptions) {
                     defaultOptions[key] = customOptions[key];
                 }
-                // init carousel
                 var curOwl = $(element).data('owlCarousel');
                 if (!angular.isDefined(curOwl)) {
                     $(element).owlCarousel(defaultOptions);
@@ -39,7 +55,6 @@ AniMerch.directive("owlCarousel", function() {
             restrict: 'A',
             transclude: false,
             link: function(scope, element) {
-                // wait for the last item in the ng-repeat then call init
                 if (scope.$last) {
                     scope.initCarousel(element.parent());
                 }
