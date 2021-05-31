@@ -1,28 +1,52 @@
-AniMerch.controller('home_controller', function($scope) {
-    console.log('buenas')
+AniMerch.controller('home_controller', function($scope, $window, banners) {
+
+    $scope.slides = banners;
+    $scope.owlOptionsTestimonials = {
+        autoPlay: 4000,
+        stopOnHover: true,
+        slideSpeed: 300,
+        paginationSpeed: 600,
+        items: 1
+    }
+
 });
 
-// function renderBanner(image) {
-//     let banner = "";
-//     banner += `
-//     <div class="banner-item-carousel">
-//         <img class="banner-item-carousel" src="${image.path}">
-//     </div>
-//     `;
-
-//     $('.owl-carousel')
-//     .trigger('add.owl.carousel', [`<div class="banner-item-carousel"><img class="banner-item-carousel" src="${image.path}"></div>`])
-//     .trigger('refresh.owl.carousel');
-// }
-
-// function loadCarousel() {
-//     friendlyURL('?page=home&op=getBanners').then(function(data) {
-//         ajaxPromise(data, "POST")
-//         .then((data)=>{
-//             data.forEach(renderBanner);
-//         })
-//     });
-// }
+AniMerch.directive("owlCarousel", function() {
+    return {
+        restrict: 'E',
+        transclude: false,
+        link: function(scope) {
+            scope.initCarousel = function(element) {
+                // provide any default options you want
+                var defaultOptions = {};
+                var customOptions = scope.$eval($(element).attr('data-options'));
+                // combine the two options objects
+                for (var key in customOptions) {
+                    defaultOptions[key] = customOptions[key];
+                }
+                // init carousel
+                var curOwl = $(element).data('owlCarousel');
+                if (!angular.isDefined(curOwl)) {
+                    $(element).owlCarousel(defaultOptions);
+                }
+                scope.cnt++;
+            };
+        }
+    };
+}).directive('owlCarouselItem', [
+    function() {
+        return {
+            restrict: 'A',
+            transclude: false,
+            link: function(scope, element) {
+                // wait for the last item in the ng-repeat then call init
+                if (scope.$last) {
+                    scope.initCarousel(element.parent());
+                }
+            }
+        };
+    }
+]);
 
 // $(document).ready(function () {
 //     $("#category2").hide();

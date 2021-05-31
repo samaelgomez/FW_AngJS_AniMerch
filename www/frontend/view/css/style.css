@@ -2838,3 +2838,60 @@ footer .inner-content p a {
 	  margin-left: 400px;
 	  margin-right: 400px;
   }
+
+  .wrapper {
+	width: 300px;
+	height: 300px;
+	overflow: hidden;
+  }
+  
+  .carousel {
+	position: relative;
+  }
+  
+  .slide {
+	background: #00f;
+	width: 300px;
+	height: 300px;
+	color: white;
+	display: inline-block;
+	position: absolute;
+  }
+  .slide:after {
+	content: attr(title);
+	color: white;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	width: 300px;
+	height: 300px;
+	font-size: 3rem;
+  }
+  .left .slide.ng-enter {
+	transition: 0.2s ease all;
+	left: 100%;
+  }
+  .left .slide.ng-enter.ng-enter-active {
+	left: 0%;
+  }
+  .right .slide.ng-enter {
+	transition: 0.2s ease all;
+	left: -100%;
+  }
+  .right .slide.ng-enter.ng-enter-active {
+	left: 0%;
+  }
+  .left .slide.ng-leave {
+	transition: 0.2s ease all;
+	left: 0%;
+  }
+  .left .slide.ng-leave.ng-leave-active {
+	left: -100%;
+  }
+  .right .slide.ng-leave {
+	transition: 0.2s ease all;
+	left: 0%;
+  }
+  .right .slide.ng-leave.ng-leave-active {
+	left: 100%;
+  }  
