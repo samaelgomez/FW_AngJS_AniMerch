@@ -25,6 +25,18 @@ class controller_shop {
         echo json_encode($json);
     }
 
+    function getBrands() {
+        $json = common::accessModel('shop_model', 'getBrands');
+
+        echo json_encode($json);
+    }
+
+    function getFranchises() {
+        $json = common::accessModel('shop_model', 'getFranchises');
+
+        echo json_encode($json);
+    }
+
     function showDetails() {
         $where = "figureName = '".$_POST['fname']."';";
         $json = common::accessModel('shop_model', 'showFilteredProducts', $where);
@@ -51,45 +63,3 @@ class controller_shop {
         echo json_encode($json);
     }
 }
-
-
-//         if ($_POST['query']) {
-//             $inpText = $_POST['query'];
-//             $query = "SELECT * FROM figures WHERE figureName LIKE '%$inpText%'";
-//             echo json_encode($shopService->autocomplete($query));
-//             die();
-//         }
-
-//         if ($_POST['order']) {
-//             $order = "ORDER BY visits DESC";
-//             echo json_encode($shopService->getOrderedProducts($order));
-//             die();
-//         }
-
-//         if ($_POST['heartState']) {
-//             if ($_POST['heartState'] == 'true') {
-//                 $shopService->addLikedProduct($_POST['username'], $_POST['figureName']);
-//                 $shopService->addUserLikedProduct($_POST['username'], $_POST['figureName']);
-//             } else {
-//                 $shopService->removeLikedProduct($_POST['username'], $_POST['figureName']);
-//                 $shopService->removeUserLikedProduct($_POST['username'], $_POST['figureName']);
-//             }
-//         }
-
-//         if($_POST['category']=="All") {
-//             echo json_encode($shopService->getProducts());
-//         } elseif ($_POST['category']=="Standard") {
-//             echo json_encode($shopService->getStandard());
-//         } elseif ($_POST['category']=="Statue") {
-//             echo json_encode($shopService->getStatue());
-//         } elseif ($_POST['category']=="Nendoroid") {
-//             echo json_encode($shopService->getNendoroid());
-//         }
-//         break;
-//     default:
-//         echo json_encode([
-//             'status' => 400,
-//             'message' => 'No request method specified',
-//         ]);
-//         break;
-// }

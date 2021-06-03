@@ -31,6 +31,36 @@ class shop_dao {
         return $data;
     }
 
+    public function getBrands() {
+        $sql = "SELECT DISTINCT brand FROM figures;";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        $data = [];
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        connect::close($conexion);
+
+        return $data;
+    }
+
+    public function getFranchises() {
+        $sql = "SELECT DISTINCT franchise FROM figures;";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        $data = [];
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        connect::close($conexion);
+
+        return $data;
+    }
+
     function select_filtered_figures($filters)
     {
         if ($filters[1] == 'guest') {

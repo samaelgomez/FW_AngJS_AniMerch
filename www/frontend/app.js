@@ -8,10 +8,24 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                 controller: "home_controller",
                 resolve: {
                     banners: function (services) {
-                        return services.get('home','getBanners');
+                        return services.get('home', 'getBanners');
                     },
                     categories: function (services) {
-                        return services.get('home','getCategories');
+                        return services.get('home', 'getCategories');
+                    }
+                }
+            }).when("/shop", {
+                templateUrl: "frontend/module/shop/view/view_shop.html", 
+                controller: "shop_controller",
+                resolve: {
+                    products: function (services) {
+                        return services.get('shop', 'showProducts', {petition: ' ', username: localStorage.getItem('username')});
+                    },
+                    brands: function(services) {
+                        return services.post('shop', 'getBrands');
+                    },
+                    franchises: function(services) {
+                        return services.post('shop', 'getFranchises');
                     }
                 }
             }).otherwise("/home", {

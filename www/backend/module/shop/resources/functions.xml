@@ -9,6 +9,14 @@
         <uri>showProducts</uri>
     </function>
     <function>
+        <name>getBrands</name>
+        <uri>getBrands</uri>
+    </function>
+    <function>
+        <name>getFranchises</name>
+        <uri>getFranchises</uri>
+    </function>
+    <function>
         <name>showDetails</name>
         <uri>showDetails</uri>
     </function>

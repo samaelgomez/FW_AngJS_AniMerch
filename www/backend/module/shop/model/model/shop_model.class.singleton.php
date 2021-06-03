@@ -19,6 +19,14 @@ class shop_model {
         return $this -> bll -> showProducts($username);
     }// end_showProducts
 
+    public function getBrands() {
+        return $this -> bll -> getBrands();
+    }// end_getBrands
+
+    public function getFranchises() {
+        return $this -> bll -> getFranchises();
+    }// end_getFranchises
+
     public function showFilteredProducts($filters) {
         return $this -> bll -> showFilteredProducts($filters);
     }// end_showFilteredProducts

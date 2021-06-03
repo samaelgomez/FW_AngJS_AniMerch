@@ -1,4 +1,4 @@
-<div class="page-heading about-heading header-text" style="background-image: url(view/images/Banner.png);">
+<div class="page-heading about-heading header-text" style="background-image: url(frontend/view/images/Banner.png);">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -14,11 +14,37 @@
 
 <main>
   <div class="filter-section__wrapper" id="loadedFilters">
+    <h3>Brands</h3>
+    <div ng-repeat = "brand in brands">
+      <label><input type="checkbox" id={{brand.brand}} class="option-input checkbox red" ng-model='brand.selected' value={{brand.brand}}>{{brand.brand}}</label>
+    </div>
+    <br/><br/>
+    <h3>Franchises</h3>
+    <div ng-repeat = "franchise in franchises">
+      <label><input type="checkbox" id={{franchise.franchise}} class="option-input checkbox red" ng-model='franchise.selected' value={{franchise.franchise}}>{{franchise.franchise}}</label>
+    </div>
+    <br/>
+    <div class="profile__cta" id="filter_button"><a class="button" ng-click = "filterProducts()">Filter</a></div>
   </div>
 
   <div>
     <section class="results-section results--grid" id="loadedProducts">
-      
+      <div class="profile" ng-repeat = "product in products">
+        <div class="profile__image" id="{{product.figureName}}">
+          <img ng-src="{{product.image}}"></div>
+        <div class="profile__info">
+          <h4>{{product.figureName}}</h4>
+        </div>
+        <div class="profile__stats">
+          <p class="profile__stats__title"></p>
+          <h5 class="profile__stats__info"></h5>
+        </div>
+        <div class="profile__stats">
+          <h4 class="profile__stats__info">{{product.price}}€</h4>
+        </div>
+        <div class="profile__cta"><a class="button cartButton" id="{{product.figureName}}">Add to your cart</a></div>
+        <div class='heartButton heart' id="{{product.figureName}}"></div>
+      </div>
     </section>
   </div>
 </main>

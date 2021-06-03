@@ -16,6 +16,36 @@ AniMerch.factory("services", ['$http','$q', function ($http, $q) {
             });
             return promise;
         };
+
+        obj.get = function (module, functi, param) {
+            var defered=$q.defer();
+            var promise=defered.promise;
+            $http({
+                  method: 'POST',
+                  url: serviceBase + module + '&op=' + functi,
+                  data: param
+              }).success(function(data, status, headers, config) {
+                 console.log(param);
+                 defered.resolve(data);
+              }).error(function(data, status, headers, config) {
+                 defered.reject(data);
+              });
+            return promise;
+        };
+
+        obj.post = function (module, option) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+            $http({
+                  method: 'POST',
+                  url: serviceBase + module + '&op=' + option
+              }).success(function(response, status, headers, config) {
+                 defered.resolve(response);
+              }).error(function(error, status, headers, config) {
+                 defered.reject(error);
+              });
+            return promise;
+          };
         
     return obj;
 }]);
