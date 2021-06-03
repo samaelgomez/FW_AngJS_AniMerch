@@ -28,6 +28,11 @@ AniMerch.controller('home_controller', function($scope, $window, banners, catego
             }
         }
     });
+
+    $scope.redirectShopCategory = function(category) {
+        localStorage.category = category;
+        location.href = "#/shop";
+    };
 });
 
 AniMerch.directive("owlCarousel", function() {

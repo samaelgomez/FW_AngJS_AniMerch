@@ -11,10 +11,10 @@
       <div class="col-md-12">
         <div class="section-heading">
           <h2>Categories</h2>
-          <a class='category' id='All' href="#/shop">view all <i class="fa fa-angle-right"></i></a>
+          <a class='category' id='All' ng-click = "redirectShopCategory('All')" href="#/shop">view all <i class="fa fa-angle-right"></i></a>
         </div>
       </div>
-      <div ng-repeat = "category in categories" id = "{{category.name}}" class = "col-md-4 category category_banner">
+      <div ng-repeat = "category in categories" id = "{{category.name}}" class = "col-md-4 category category_banner" ng-click = "redirectShopCategory('{{category.name}}')">
         <div class = "inner">
             <img ng-src = "{{category.path}}">
             <br/><br/>

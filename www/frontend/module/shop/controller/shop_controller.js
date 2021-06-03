@@ -2,13 +2,30 @@ AniMerch.controller('shop_controller', function($scope, products, brands, franch
 
     $scope.allProducts = products;
     $scope.products = products;
+    $scope.filteredProducts = [];
     $scope.brands = brands;
     $scope.franchises = franchises;
 
+    if (!localStorage.category) {
+        localStorage.category = 'All';
+    } else if (localStorage.category !== 'All') {
+        $scope.allProducts.forEach(element => {
+            if (element.type == localStorage.category) {
+                $scope.filteredProducts.push(element);
+            }
+        })
+        $scope.products = $scope.filteredProducts;
+    }
+
+    $scope.category = localStorage.category;
+
+    console.log($scope.allProducts);
+
     $scope.filterProducts = function() {
+        $scope.category = 'All';
+        $scope.filteredProducts = [];
         $scope.filteredBrands = [];
         $scope.filteredFranchises = [];
-        $scope.filteredProducts = [];
         angular.forEach($scope.brands, function(brand){
             if (brand.selected)
                 $scope.filteredBrands.push(brand.brand);

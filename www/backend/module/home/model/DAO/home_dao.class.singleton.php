@@ -26,7 +26,7 @@ class home_dao {
     }
 
     public function select_all_categories() {
-        $sql = "SELECT * FROM images WHERE name LIKE 'Category%'";
+        $sql = "SELECT * FROM images WHERE name NOT LIKE 'Banner%';";
         
         $conexion = connect::con();
         $res = mysqli_query($conexion, $sql);
