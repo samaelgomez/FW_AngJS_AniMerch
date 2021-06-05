@@ -1,4 +1,4 @@
-AniMerch.controller('shop_controller', function($scope, $http, products, brands, franchises) {
+AniMerch.controller('shop_controller', function($scope, $http, services, products, brands, franchises) {
 
     $scope.allProducts = products;
     $scope.products = products;
@@ -54,6 +54,7 @@ AniMerch.controller('shop_controller', function($scope, $http, products, brands,
 
     $scope.showDetails = function(product) {
         $scope.detailedProduct = product;
+
         for (let i = 0; i < 3; i++) {
             $http.get("https://dog.ceo/api/breeds/image/random")
             .then(function(response){
@@ -66,185 +67,17 @@ AniMerch.controller('shop_controller', function($scope, $http, products, brands,
                 }
             });
         }
-
+        
+        services.get('shop', 'addVisit', {upfname: product.figureName});
         $scope.toggleShowDetails = true;
     };
+
+    $scope.paginate = function() {
+        return function(data, start){
+            return data.slice(start);
+        }
+    };
 });
-
-
-// function display_image(id, image_url){
-//   document.getElementById(id).src = image_url;
-// }
-
-// function get_random_dog_image(id){
-//   url = "https://dog.ceo/api/breeds/image/random";
-
-//   fetch(url)
-//   .then(function(response){
-//     return response.json();
-//   })
-//   .then(function(data){
-//     display_image(id, data.message);
-//   })
-//   .catch(function(error){
-//     console.log("Error: " + error);
-//   });
-// }
-
-// function renderDetails(figure) {
-  
-//   get_random_dog_image('image1');
-//   get_random_dog_image('image2');
-//   get_random_dog_image('image3');
-
-//   let product = `
-//   <div class="products" id="details_container">
-//     <div class="container">
-//       <div class="row">
-//         <div class="col-md-4 col-xs-12">
-//           <div>
-//             <img src="${figure[0].image}" alt="" class="img-fluid wc-image">
-//           </div>
-//           <div class="row">
-//             <div class="col-sm-4 col-xs-6">
-//               <div>
-//                 <img src="view/images/png.png" alt="" class="img-fluid">
-//               </div>
-//               <br>
-//             </div>
-//             <div class="col-sm-4 col-xs-6">
-//               <div>
-//                 <img src="view/images/png.png" alt="" class="img-fluid">
-//               </div>
-//               <br>
-//             </div>
-//             <div class="col-sm-4 col-xs-6">
-//               <div>
-//                 <img src="view/images/png.png" alt="" class="img-fluid">
-//               </div>
-//               <br>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div class="col-md-8 col-xs-12">
-//           <form action="#" method="post" class="form">
-//             <h2>${figure[0].figureName}</h2>
-//             <br>
-//             <p class="lead">
-//               <strong class="text-primary">${figure[0].price}€</strong>
-//             </p>
-
-//             <br>
-
-//             <p class="lead">
-//               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi ratione molestias maxime odio. Provident ratione vero, corrupti, optio laborum aut!
-//             </p>
-
-//             <br> 
-
-//             <div class="row">
-//               <div class="col-sm-4">
-//                 <label class="control-label">Extra 1</label>
-//                 <div class="form-group">
-//                   <select class="form-control">
-//                     <option value="0">18 gears</option>
-//                     <option value="1">21 gears</option>
-//                     <option value="2">27 gears</option>
-//                   </select>
-//                 </div>
-//               </div>
-//               <div class="col-sm-8">
-//                 <label class="control-label">Quantity</label>
-
-//                 <div class="row">
-//                   <div class="col-sm-6">
-//                     <div class="form-group">
-//                       <input type="text" class="form-control" placeholder="1">
-//                     </div>
-//                   </div>
-
-//                   <div class="col-sm-6">
-//                     <a href="#" class="btn btn-primary btn-block">Add to Cart</a>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </form>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-  
-//   <div class="latest-products">
-//     <div class="container">
-//       <div class="row">
-//         <div class="col-md-12">
-//           <div class="section-heading">
-//             <h2>Similar Products</h2>
-//             <a href="products.html">view more <i class="fa fa-angle-right"></i></a>
-//           </div>
-//         </div>
-//         <div class="col-md-4">
-//           <div class="product-item">
-//             <a href="product-details.html"></a>
-//             <div class="down-content">
-//                 <img id="image1"/>
-//                 <h4>Random doggo 1</h4></a>
-//                 <h6><small><del>$99.00</del></small> FREE :)</h6>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div class="col-md-4">
-//           <div class="product-item">
-//             <a href="product-details.html"></a>
-//             <div class="down-content">
-//               <img id="image2"/>
-//               <h4>Random doggo 2</h4></a>
-//               <h6><small><del>$99.00</del></small> FREE :)</h6>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div class="col-md-4">
-//           <div class="product-item">
-//             <a href="product-details.html"></a>
-//             <div class="down-content">
-//               <img id="image3"/>
-//               <h4>Random doggo 3</h4></a>
-//               <h6><small><del>$99.00</del></small> FREE :)</h6>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   </div>`;
-
-//   $('<div></div>').html(product).appendTo('#loadedDetails');
-// }
-
-// function loadDetails(figureName) {
-//   $('.variation').empty();
-//   $('#loadedFilters').empty();
-//   $('#loadedProducts').empty();
-//   $('#most_visited').empty();
-
-//   friendlyURL('?page=shop&op=showDetails').then(function(data) {
-//     ajaxPromise(data, "POST", {fname: figureName})
-//     .then((data)=>{
-//       renderDetails(data);
-//     })
-//   })
-// }
-
-// function addVisit(figureName) {
-//   friendlyURL('?page=shop&op=addVisit').then(function(data) {
-//     ajaxPromise(data, "POST", {upfname: figureName})
-//     .then((data)=>{
-//     })
-//   })
-// }
 
 // function renderProduct(figure) {
 //   let product = `
@@ -271,39 +104,7 @@ AniMerch.controller('shop_controller', function($scope, $http, products, brands,
 //   $('<section></section>').attr({'class':'results-section results--grid'}).html(product).appendTo('#loadedProducts');
 // }
 
-// function makePetition() {
-//   let petition = "";
-//   filterArray.forEach((Tipos,index1) => {
-//         Tipos.filters.forEach((filtro,index2)=>{
-//             if (index2 === 0) {
-//               petition += '(';
-//             }
-
-//             petition += ` ${Tipos.tipo} = '${filtro}' `
-//             if (Tipos.filters.length-1 === index2) {
-//               petition += ')';
-//                 if (filterArray.length-1 === index1) {
-//                     petition +=";"
-//                 }else{
-//                     petition +="AND"
-//                 }
-//             } else {
-//                 petition +="OR"
-//             }
-//         })
-//     });
-
-//     return petition;
-
-// }
-
 // window.onload = () =>{
-//   $("body").on("click", ".category", function() {
-//     localStorage.setItem('category', this.getAttribute('id'));
-//   });
-
-//   $('<h2></h2>').html(localStorage.getItem("category")).appendTo('#figure_title');
-
 //   $("body").on("click", ".heartButton", function() {
 //     figureNameID = this.getAttribute('id');
 //     if ($(this).hasClass('active')){
@@ -322,21 +123,6 @@ AniMerch.controller('shop_controller', function($scope, $http, products, brands,
 //   $("body").on("click", ".cartButton", function() {
 //     localStorage.setItem('cart' + this.id, this.id);
 //   });
-
-//   $("body").on("click", ".profile__image", function() {
-//     addVisit(this.getAttribute('id'));
-//     loadDetails(this.getAttribute('id'));
-//   });
-
-//   document.getElementById("All").addEventListener("click",()=>{
-//     localStorage.removeItem('petition');
-//   })
-  
-//   let dbpetition = localStorage.getItem('petition') || " ";
-
-//   if (document.getElementById('loadedProducts') != undefined) {
-//     loadPage(dbpetition);
-//   }
 
 //   let url = window.location.href.split('/');
 //     if (url[3] == 'auth') {

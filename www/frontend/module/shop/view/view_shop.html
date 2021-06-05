@@ -30,7 +30,7 @@
 
   <div>
     <section class="results-section results--grid" id="loadedProducts">
-      <div class="profile" ng-repeat = "product in products">
+      <div class="profile" dir-paginate = "product in products | itemsPerPage: 2">
         <div class="profile__image" id="{{product.figureName}}" ng-click = "showDetails(product)">
           <img ng-src="{{product.image}}"></div>
         <div class="profile__info">
@@ -47,6 +47,10 @@
         <div class='heartButton heart' id="{{product.figureName}}"></div>
       </div>
     </section>
+    <br/>
+    <div class="paginationController">
+      <dir-pagination-controls></dir-pagination-controls>
+    </div>
   </div>
 
   <div class="wrapper" id="most_visited">

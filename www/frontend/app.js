@@ -1,4 +1,4 @@
-var AniMerch = angular.module('AniMerch', ['ngRoute', 'ui.bootstrap.tpls', 'ngAnimate', 'ngTouch']);
+var AniMerch = angular.module('AniMerch', ['ngRoute', 'ui.bootstrap.tpls', 'ngAnimate', 'ngTouch', 'angularUtils.directives.dirPagination']);
 
 AniMerch.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {

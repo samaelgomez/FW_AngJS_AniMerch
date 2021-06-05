@@ -2888,4 +2888,9 @@ footer .inner-content p a {
   }
   .right .slide.ng-leave.ng-leave-active {
 	left: 100%;
-  }  
+  }
+  .paginationController {
+	padding: 20px;
+	margin-left: 590px;
+	font-size: x-large;
+  }
