@@ -12,11 +12,11 @@ class shop_dao {
 
     public function select_all_figures($username) {
         if ($username == 'guest') {
-            $sql = "SELECT * FROM figures ORDER BY visits DESC";
+            $sql = "SELECT * FROM figures";
         } else {
             $sql = "SELECT *, 
                             IF((SELECT figureName FROM liked WHERE liked.figureName = figures.figureName AND liked.username = '".$username."') IS NULL, FALSE, TRUE) AS liked 
-                            FROM figures ORDER BY visits DESC";
+                            FROM figures";
         }
         
         $conexion = connect::con();

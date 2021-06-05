@@ -2,6 +2,7 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
 
     $scope.allProducts = products;
     $scope.products = products;
+    $scope.visits = $scope.allProducts.visits;
     $scope.filteredProducts = [];
     $scope.brands = brands;
     $scope.franchises = franchises;
@@ -19,6 +20,13 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
     }
 
     $scope.category = localStorage.category;
+    $scope.owlOptionsTestimonials = {
+        autoPlay: 4000,
+        stopOnHover: true,
+        slideSpeed: 300,
+        paginationSpeed: 600,
+        items: 3
+    }
 
     console.log($scope.allProducts);
 
@@ -72,11 +80,38 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
         $scope.toggleShowDetails = true;
     };
 
-    $scope.paginate = function() {
-        return function(data, start){
-            return data.slice(start);
+    AniMerch.directive("owlCarousel", function() {
+        return {
+            restrict: 'E',
+            transclude: false,
+            link: function(scope) {
+                scope.initCarousel = function(element) {
+                    var defaultOptions = {};
+                    var customOptions = scope.$eval($(element).attr('data-options'));
+                    for (var key in customOptions) {
+                        defaultOptions[key] = customOptions[key];
+                    }
+                    var curOwl = $(element).data('owlCarousel');
+                    if (!angular.isDefined(curOwl)) {
+                        $(element).owlCarousel(defaultOptions);
+                    }
+                    scope.cnt++;
+                };
+            }
+        };
+    }).directive('owlCarouselItem', [
+        function() {
+            return {
+                restrict: 'A',
+                transclude: false,
+                link: function(scope, element) {
+                    if (scope.$last) {
+                        scope.initCarousel(element.parent());
+                    }
+                }
+            };
         }
-    };
+    ]);
 });
 
 // function renderProduct(figure) {

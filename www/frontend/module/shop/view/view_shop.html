@@ -53,10 +53,13 @@
     </div>
   </div>
 
-  <div class="wrapper" id="most_visited">
-    <ul class="anchorList">
-      <li><a href="#">Most visited figures</a></li>
-    </ul>
+  <div class='shopCarousel'>
+    <h3>Most visited figures</h3>
+    <data-owl-carousel class="owl-carousel" data-options="owlOptionsTestimonials">
+      <div owl-carousel-item="" class="item" ng-click = "showDetails(product)" ng-repeat="product in allProducts | orderBy:'visits':true">
+        <img ng-src="{{product.image}}">
+      </div>
+    </data-owl-carousel>
   </div>
 </main>
 
