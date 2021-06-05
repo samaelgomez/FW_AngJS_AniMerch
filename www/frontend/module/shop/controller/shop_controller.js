@@ -1,10 +1,11 @@
-AniMerch.controller('shop_controller', function($scope, products, brands, franchises) {
+AniMerch.controller('shop_controller', function($scope, $http, products, brands, franchises) {
 
     $scope.allProducts = products;
     $scope.products = products;
     $scope.filteredProducts = [];
     $scope.brands = brands;
     $scope.franchises = franchises;
+    $scope.toggleShowDetails = false;
 
     if (!localStorage.category) {
         localStorage.category = 'All';
@@ -49,6 +50,24 @@ AniMerch.controller('shop_controller', function($scope, products, brands, franch
             }
         });
         $scope.products = $scope.filteredProducts;
+    };
+
+    $scope.showDetails = function(product) {
+        $scope.detailedProduct = product;
+        for (let i = 0; i < 3; i++) {
+            $http.get("https://dog.ceo/api/breeds/image/random")
+            .then(function(response){
+                if (i == 0) {
+                    $scope.randomImage1 = response.data.message;
+                } else if (i == 1) {
+                    $scope.randomImage2 = response.data.message;
+                } else {
+                    $scope.randomImage3 = response.data.message;
+                }
+            });
+        }
+
+        $scope.toggleShowDetails = true;
     };
 });
 

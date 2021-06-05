@@ -1,6 +1,6 @@
 <div class="page-heading about-heading header-text" style="background-image: url(frontend/view/images/Banner.png);">
   <div class="container">
-    <div class="row col-md-12">
+    <div class="row">
       <div class="col-md-12">
         <div class="text-content" id="figure_title">
           <h2>{{category}}</h2>
@@ -13,7 +13,7 @@
 <input class="variation" id="bluepurple" type="radio" value="1" name="color" checked="checked"/>
 <label for="bluepurple"></label>
 
-<main>
+<main ng-hide='toggleShowDetails'>
   <div class="filter-section__wrapper" id="loadedFilters">
     <h3>Brands</h3>
     <div ng-repeat = "brand in brands">
@@ -31,7 +31,7 @@
   <div>
     <section class="results-section results--grid" id="loadedProducts">
       <div class="profile" ng-repeat = "product in products">
-        <div class="profile__image" id="{{product.figureName}}">
+        <div class="profile__image" id="{{product.figureName}}" ng-click = "showDetails(product)">
           <img ng-src="{{product.image}}"></div>
         <div class="profile__info">
           <h4>{{product.figureName}}</h4>
@@ -48,19 +48,121 @@
       </div>
     </section>
   </div>
+
+  <div class="wrapper" id="most_visited">
+    <ul class="anchorList">
+      <li><a href="#">Most visited figures</a></li>
+    </ul>
+  </div>
 </main>
 
-<div class="products" id="figure_container">
-  <div class="container">
-    <div id="productLoader" class="row">
+<div id="loadedDetails" ng-show='toggleShowDetails'>
+  <div class="products" id="details_container">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-xs-12">
+          <div>
+            <img src="{{detailedProduct.image}}" alt="" class="img-fluid wc-image">
+          </div>
+          <div class="row">
+            <div class="col-sm-4 col-xs-6">
+              <div>
+                <img src="{{detailedProduct.image}}" alt="" class="img-fluid">
+              </div>
+              <br>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <div>
+                <img src="{{detailedProduct.image}}" alt="" class="img-fluid">
+              </div>
+              <br>
+            </div>
+            <div class="col-sm-4 col-xs-6">
+              <div>
+                <img src="{{detailedProduct.image}}" alt="" class="img-fluid">
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8 col-xs-12">
+          <form action="#" method="post" class="form">
+            <h2>{{detailedProduct.figureName}}</h2>
+            <br>
+            <p class="lead">
+              <strong class="text-primary">{{detailedProduct.price}}€</strong>
+            </p>
+
+            <br>
+
+            <p class="lead">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi ratione molestias maxime odio. Provident ratione vero, corrupti, optio laborum aut!
+            </p>
+
+            <br> 
+
+            <div class="row">
+              <div class="col-sm-8">
+                <label>Quantity</label>
+
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="1">
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <a href="#" class="btn btn-primary btn-block">Add to Cart</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="latest-products">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="section-heading">
+                  <h2>You also may like:</h2>
+                  <a href="products.html">view more <i class="fa fa-angle-right"></i></a>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="product-item">
+                  <div class="down-content">
+                      <img src="{{randomImage1}}"/>
+                      <h4>Random doggo 1</h4></a>
+                      <h6><small><del>$99.00</del></small> FREE :)</h6>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col-md-4">
+                <div class="product-item">
+                  <div class="down-content">
+                    <img src="{{randomImage2}}"/>
+                    <h4>Random doggo 2</h4></a>
+                    <h6><small><del>$99.00</del></small> FREE :)</h6>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col-md-4">
+                <div class="product-item">
+                  <div class="down-content">
+                    <img src="{{randomImage3}}"/>
+                    <h4>Random doggo 3</h4></a>
+                    <h6><small><del>$99.00</del></small> FREE :)</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-<div id="loadedDetails"></div>
-
-<div class="wrapper" id="most_visited">
-  <ul class="anchorList">
-    <li><a href="#">Most visited figures</a></li>
-  </ul>
 </div>
