@@ -34,8 +34,6 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                 resolve: {
                 }
             }).when("/auth/activate/:token", {
-                templateUrl: "frontend/module/auth/view/view_auth.html", 
-                controller: "auth_controller",
                 resolve: {
                     activate: function (services, $route) {
                         return services.get('auth', 'activate', {'token': $route.current.params.token});
