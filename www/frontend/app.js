@@ -28,6 +28,19 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                         return services.post('shop', 'getFranchises');
                     }
                 }
+            }).when("/auth", {
+                templateUrl: "frontend/module/auth/view/view_auth.html", 
+                controller: "auth_controller",
+                resolve: {
+                }
+            }).when("/auth/activate/:token", {
+                templateUrl: "frontend/module/auth/view/view_auth.html", 
+                controller: "auth_controller",
+                resolve: {
+                    activate: function (services, $route) {
+                        return services.get('auth', 'activate', {'token': $route.current.params.token});
+                    }
+                }
             }).otherwise("/home", {
                 templateUrl: "frontend/module/home/view/view_home.html", 
                 controller: "home_controller"

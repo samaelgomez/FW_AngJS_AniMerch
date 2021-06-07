@@ -2,7 +2,6 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
 
     $scope.allProducts = products;
     $scope.products = products;
-    $scope.visits = $scope.allProducts.visits;
     $scope.filteredProducts = [];
     $scope.brands = brands;
     $scope.franchises = franchises;

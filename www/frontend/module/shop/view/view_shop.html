@@ -56,7 +56,7 @@
   <div class='shopCarousel'>
     <h3>Most visited figures</h3>
     <data-owl-carousel class="owl-carousel" data-options="owlOptionsTestimonials">
-      <div owl-carousel-item="" class="item" ng-click = "showDetails(product)" ng-repeat="product in allProducts | orderBy:'visits':true">
+      <div owl-carousel-item="" class="item" ng-click = "showDetails(product)" ng-repeat="product in allProducts | orderBy:'visits':true | filter:searchBox">
         <img ng-src="{{product.image}}">
       </div>
     </data-owl-carousel>

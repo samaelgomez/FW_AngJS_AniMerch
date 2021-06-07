@@ -9,14 +9,14 @@ class mail {
                 $email['fromEmail'] = 'samaelgomezherrera@gmail.com';
                 $email['inputMatter'] = 'Recover password.';
                 $content .= '<h2>Recover password.</h2>';
-                $content .= '<a href = "http://localhost/auth/recoverPass/' . $email['token'] . '">Click here to recover your password.</a>';
+                $content .= '<a href = "http://localhost/#/auth/recoverPass/' . $email['token'] . '">Click here to recover your password.</a>';
                 break;
                 //////
             case 'validate';
                 $email['fromEmail'] = 'samaelgomezherrera@gmail.com';
                 $email['inputMatter'] = 'Email verification.';
                 $content .= '<h2>Email verification.</h2>';
-                $content .= '<a href = "http://localhost/auth/activate/' . $email['token'] . '">Click here to verify your email.</a>';
+                $content .= '<a href = "http://localhost/#/auth/activate/' . $email['token'] . '">Click here to verify your email.</a>';
                 break;
                 //////
         }// end_switch
@@ -27,7 +27,7 @@ class mail {
     }// end_setEmail
     
     function sendMailGun($values) {
-        $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/model/apis/apis.ini');
+        $ini_file = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/backend/model/apis/apis.ini');
         $config = array();
         //////
         $config['api_key'] = $ini_file['mailGunKey'];

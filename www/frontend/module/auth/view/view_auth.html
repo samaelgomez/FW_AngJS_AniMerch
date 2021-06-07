@@ -13,70 +13,67 @@
     <br>
     <br>
     <br>
-    <section class="authentication d-flex justify-content-center authForms">
+    <section class="authentication d-flex justify-content-center authForms" ng-show='showAuthForms'>
       <div class="bg-white" id="formContent">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="first-tab" data-toggle="tab" href="#reg" role="tab" aria-controls="home" aria-selected="true">
+            <a class="nav-link active" id="first-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true" ng-click = "toggleForm('register')">
           Register</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#log" role="tab" aria-controls="profile" aria-selected="false">Login</a>
+            <a class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false" ng-click = "toggleForm('login')">Login</a>
           </li>
-    
         </ul>
         <div class="tab-content px-4 py-5" id="myTabContent">
           <div class="tab-pane fade show active" id="reg" role="tabpanel" aria-labelledby="home-tab">
-              <form id="registerForm">
-                  <div class="input-box">
-                    <i class="fa fa-envelope"></i>
-                    <input type="email" name="registerFormEmail" placeholder="Email">
-                  </div>
-
-                  <div class="input-box">
-                    <i class="fa fa-user"></i>
-                    <input type="text" name="registerFormName" placeholder="Username">
-                  </div>
-      
-                  <div class="input-box">
-                    <i class="fa fa-lock"></i>
-                    <input type="password" name="registerFormPass" placeholder="Password">
-                  </div>
-      
-                  <button class="btn btn btn-outline-secondary btn-block mt-3" id="registerButton">Register</button>
-              </form>
-
-            </div>
-                <div class="tab-pane fade" id="log" role="tabpanel" aria-labelledby="profile-tab">
-                    <form id="loginForm">
-
-                      <div class="input-box">
-                        <i class="fa fa-envelope"></i>
-                        <input type="email" name="loginFormEmail" placeholder="Email">
-                      </div>
-                      
-                      <div class="input-box">
-                        <i class="fa fa-user"></i>
-                        <input type="text" name="loginFormName" placeholder="Username">
-                      </div>
-          
-                      <div class="input-box">
-                        <i class="fa fa-lock"></i>
-                        <input type="password" name="loginFormPass" placeholder="Password">
-                      </div>
-          
-                      <button class="btn btn btn-outline-secondary btn-block mt-3" id="loginButton">Login</button>
-                    </form>
+            <form id="registerForm" ng-show='toggleAuth'>
+                <div class="input-box">
+                  <i class="fa fa-envelope"></i>
+                  <input type="email" name="registerFormEmail" placeholder="Email">
                 </div>
-              <br/>
-              <i class="fa fa-google fa-3x" aria-hidden="true" id="googleLoginButton"></i>
-              <i class="fa fa-github fa-3x" aria-hidden="true" id="githubLoginButton"></i>
-              </div>
-              <button class="mt-1" id="recoverButton">Forgot password?</button>
-              </div>
+
+                <div class="input-box">
+                  <i class="fa fa-user"></i>
+                  <input type="text" name="registerFormName" placeholder="Username">
+                </div>
+    
+                <div class="input-box">
+                  <i class="fa fa-lock"></i>
+                  <input type="password" name="registerFormPass" placeholder="Password">
+                </div>
+    
+                <button class="btn btn btn-outline-secondary btn-block mt-3" id="registerButton" ng-click = "registerButton()">Register</button>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="log" role="tabpanel" aria-labelledby="profile-tab">
+              <form id="loginForm" ng-hide='toggleAuth'>
+                <div class="input-box">
+                  <i class="fa fa-envelope"></i>
+                  <input type="email" name="loginFormEmail" placeholder="Email">
+                </div>
+                
+                <div class="input-box">
+                  <i class="fa fa-user"></i>
+                  <input type="text" name="loginFormName" placeholder="Username">
+                </div>
+    
+                <div class="input-box">
+                  <i class="fa fa-lock"></i>
+                  <input type="password" name="loginFormPass" placeholder="Password">
+                </div>
+    
+                <button class="btn btn btn-outline-secondary btn-block mt-3" id="loginButton" ng-click = "loginButton()">Login</button>
+              </form>
+          </div>
+          <br/>
+          <i class="fa fa-google fa-3x" aria-hidden="true" id="googleLoginButton"></i>
+          <i class="fa fa-github fa-3x" aria-hidden="true" id="githubLoginButton"></i>
+          </div>
+          <button class="mt-1" id="recoverButton" ng-click = "recoverButton()">Forgot password?</button>
+          </div>
           </form>
       </section>
-      <div id="formRecover">
+      <div id="formRecover" ng-show='showRecover'>
         <h4>Email to recover password</h4>
         <form id="sendRecoverForm">
             <div class="input-box">
@@ -84,11 +81,11 @@
               <input type="email" name="recoverFormEmail" placeholder="Email" id="recoverFormEmail">
             </div>
 
-            <button type='button' class="btn btn btn-outline-secondary btn-block mt-3" id="sendRecoverButton">Recover pass</button>
+            <button type='button' class="btn btn btn-outline-secondary btn-block mt-3" id="sendRecoverButton" ng-click = "sendRecoverButton()">Recover pass</button>
         </form>
       </div>
 
-      <div id="formRecoverPass">
+      <div id="formRecoverPass" ng-show='showRecoverPass'>
         <h4>Update password</h4>
         <form id="sendRecoverPassForm">
             <div class="input-box">

@@ -19,6 +19,7 @@ class controller_auth {
                     $user = common::accessModel('auth_model', 'login', $_POST['data']);
                     $email = ['type' => 'validate', 'token' => $token, 'toEmail' => $_POST['data'][1][0]];
                     mail::setEmail($email);
+                    echo json_encode([$_POST['data'][0], $user, $token]);
                 } else {
                     $token = middleware::token('encode', $_POST['data'][1][1]);
                     $insertOK = common::accessModel('auth_model', 'insertShop', [$_POST['data'], $token]);
@@ -29,6 +30,7 @@ class controller_auth {
                     $user = common::accessModel('auth_model', 'login', $_POST['data']);
                     $email = ['type' => 'validate', 'token' => $token, 'toEmail' => $_POST['data'][1][0]];
                     mail::setEmail($email);
+                    echo json_encode([$_POST['data'][0], $user, $token]);
                 }
             } else {
                 echo json_encode("That user already exists...");
@@ -42,14 +44,12 @@ class controller_auth {
                 $userType = (explode('.', explode('@', $_POST['data'][1][0])[1])[0]);
                 $token = middleware::token('encode', $userType);
             }
-
             echo json_encode([$_POST['data'][0], $json, $token]);
         }
     }
 
     function activate() {
-        $token = $_GET['param'];
-        $json = common::accessModel('auth_model', 'activate', $token);
+        $json = common::accessModel('auth_model', 'activate', $_POST['token']);
     }
 
     function recover() {

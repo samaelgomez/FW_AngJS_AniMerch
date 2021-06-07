@@ -1,4 +1,4 @@
-AniMerch.factory("services", ['$http','$q', function ($http, $q) {
+AniMerch.factory("services", ['$http','$q', function ($http, $q) {  
     let serviceBase = '/backend/index.php?page=';
     let obj = {};
 
