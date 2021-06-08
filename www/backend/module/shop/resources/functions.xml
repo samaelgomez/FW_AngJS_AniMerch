@@ -9,6 +9,10 @@
         <uri>showProducts</uri>
     </function>
     <function>
+        <name>searchProducts</name>
+        <uri>searchProducts</uri>
+    </function>
+    <function>
         <name>getBrands</name>
         <uri>getBrands</uri>
     </function>

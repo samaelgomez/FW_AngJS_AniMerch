@@ -1,7 +1,19 @@
 AniMerch.controller('shop_controller', function($scope, $http, services, products, brands, franchises) {
 
+    if (localStorage.searchFilter) {
+        $scope.products = services.get('shop', 'searchProducts', {search: localStorage.searchFilter})
+        .then((result)=>{
+            if (result) {
+                $scope.products = result;
+            } else {
+                reject("Search error");
+            }
+        })
+    } else {
+        $scope.products = products;
+    }
+
     $scope.allProducts = products;
-    $scope.products = products;
     $scope.filteredProducts = [];
     $scope.brands = brands;
     $scope.franchises = franchises;
@@ -27,9 +39,8 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
         items: 3
     }
 
-    console.log($scope.allProducts);
-
     $scope.filterProducts = function() {
+        localStorage.removeItem('searchFilter');
         $scope.category = 'All';
         $scope.filteredProducts = [];
         $scope.filteredBrands = [];
@@ -80,14 +91,18 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
     };
 
     $scope.likeHandler = function(product, productLiked) {
-        if (productLiked == '') {
-            services.get('shop', 'addLike', {username: localStorage.getItem('username'), figureName: product.figureName});
-            let likedFigure = angular.element(document.querySelector('#' + product.figureName));
-            likedFigure.addClass('active');
+        if (localStorage.username) {
+            if (productLiked == '') {
+                services.get('shop', 'addLike', {username: localStorage.getItem('username'), figureName: product.figureName});
+                let likedFigure = angular.element(document.querySelector('#' + product.figureName));
+                likedFigure.addClass('active');
+            } else {
+                services.get('shop', 'removeLike', {username: localStorage.getItem('username'), figureName: product.figureName});
+                let likedFigure = angular.element(document.querySelector('#' + product.figureName));
+                likedFigure.removeClass('active');
+            }
         } else {
-            services.get('shop', 'removeLike', {username: localStorage.getItem('username'), figureName: product.figureName});
-            let likedFigure = angular.element(document.querySelector('#' + product.figureName));
-            likedFigure.removeClass('active');
+            location.replace('#/auth');
         }
     };
 

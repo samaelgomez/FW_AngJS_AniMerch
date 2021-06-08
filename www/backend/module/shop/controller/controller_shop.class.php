@@ -25,6 +25,12 @@ class controller_shop {
         echo json_encode($json);
     }
 
+    function searchProducts() {
+        $json = common::accessModel('shop_model', 'searchProducts', $_POST['search']);
+
+        echo json_encode($json);
+    }
+
     function getBrands() {
         $json = common::accessModel('shop_model', 'getBrands');
 

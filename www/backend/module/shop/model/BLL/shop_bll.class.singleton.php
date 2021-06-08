@@ -19,6 +19,10 @@ class shop_bll {
         return $this -> dao -> select_all_figures($username);
     }// end_showProducts
 
+    public function searchProducts($search) {
+        return $this -> dao -> searchProducts($search);
+    }// end_searchProducts
+
     public function getBrands() {
         return $this -> dao -> getBrands();
     }// end_getBrands

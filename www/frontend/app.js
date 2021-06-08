@@ -1,7 +1,8 @@
-var AniMerch = angular.module('AniMerch', ['ngRoute', 'ngAnimate', 'ngTouch', 'angularUtils.directives.dirPagination']);
+var AniMerch = angular.module('AniMerch', ['ngRoute', 'ngTouch', 'angularUtils.directives.dirPagination']);
 
 AniMerch.run(function($rootScope) {
     $rootScope.toggleLoginButton = true;
+    $rootScope.searchFigures = '';
     $rootScope.logout = function() {
         localStorage.removeItem('username');
         localStorage.removeItem('userType');

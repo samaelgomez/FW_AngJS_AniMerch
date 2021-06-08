@@ -5,8 +5,8 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="search-bar">
-                <input placeholder="Search" type="text" name="search" id="search">
+            <div class="search-bar" ng-controller='search_controller'>
+                <input placeholder="Search" type="text" name="search" id="search" ng-model='searchValue' ng-keydown="$event.keyCode === 13 && searchProduct()">
             </div>
             <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">

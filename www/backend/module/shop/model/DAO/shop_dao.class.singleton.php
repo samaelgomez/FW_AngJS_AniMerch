@@ -30,6 +30,21 @@ class shop_dao {
 
         return $data;
     }
+    
+    public function searchProducts($search) {
+        $sql = "SELECT * FROM figures WHERE figureName LIKE '%".$search."%';";
+        
+        $conexion = connect::con();
+        $res = mysqli_query($conexion, $sql);
+
+        $data = [];
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $data[] = $row;
+        }
+        connect::close($conexion);
+
+        return $data;
+    }
 
     public function getBrands() {
         $sql = "SELECT DISTINCT brand FROM figures;";
@@ -56,33 +71,6 @@ class shop_dao {
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $data[] = $row;
         }
-        connect::close($conexion);
-
-        return $data;
-    }
-
-    function select_filtered_figures($filters)
-    {
-        if ($filters[1] == 'guest') {
-            $sql = "SELECT * FROM figures WHERE ".$filters[0];
-        } else {
-            $sql = "SELECT *, 
-                            IF((SELECT figureName FROM liked WHERE liked.figureName = figures.figureName AND liked.username = '".$filters[1]."') IS NULL, FALSE, TRUE) AS liked 
-                            FROM figures WHERE ".$filters[0];
-        }
-        
-        $conexion = connect::con();
-        $res = mysqli_query($conexion, $sql);
-
-        try {
-            $data = [];
-            while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
-            $data[] = $row;
-        }
-        } catch (\Throwable $th) {
-            $data = [];
-        }
-
         connect::close($conexion);
 
         return $data;
