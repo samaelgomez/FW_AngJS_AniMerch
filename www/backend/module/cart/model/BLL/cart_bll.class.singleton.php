@@ -22,4 +22,8 @@ class cart_bll {
     public function substractStock($figures) {
         return $this -> dao -> substractStock($figures);
     }// end_substractStock
+
+    public function purchase($data) {
+        return $this -> dao -> purchase($data);
+    }// end_purchase
 }// end_cart_bll

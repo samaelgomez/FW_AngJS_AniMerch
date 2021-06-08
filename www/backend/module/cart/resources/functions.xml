@@ -12,4 +12,8 @@
         <name>substractStock</name>
         <uri>substractStock</uri>
     </function>
+    <function>
+        <name>purchase</name>
+        <uri>purchase</uri>
+    </function>
 </functions>

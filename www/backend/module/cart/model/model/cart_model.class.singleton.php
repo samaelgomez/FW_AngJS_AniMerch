@@ -22,4 +22,8 @@ class cart_model {
     public function substractStock($figures) {
         return $this -> bll -> substractStock($figures);
     }// end_substractStock
+
+    public function purchase($data) {
+        return $this -> bll -> purchase($data);
+    }// end_purchase
 }// end_cart_model

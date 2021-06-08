@@ -1,18 +1,88 @@
 <br/><br/><br>
+<!-- <div class="container" id="AniMerch" ng-app="AniMerch" ng-controller="cart_controller as AniMerch">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cartProduct in cartProducts">
+                <td>{{cartProduct.figureName}}</td>
+                <td class="text-right">{{cartProduct.price}}</td>
+                <td>
+                    <div class="form-row">
+                    <div class="col">
+                        <input type="number" ng-model="cartProduct.quantity" class="form-control" min="1" step="1" />
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-danger" ng-click="remove(cartProduct)">
+                        <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                    </div>
+                </td>
+                <td class="text-right">{{cartProduct.price * cartProduct.quantity}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                <th colspan="3">Total</th>
+                <th>{{total}}</th>
+                </tr>
+            </tfoot>
+            </table>
+        </div>
+    </div>
+</div> -->
 <div class="container" id="cartContainer">
+    <section id="cart" ng-repeat = "cartProduct in cartProducts">
+        <article class="product" id="{{cartProduct.figureName}}">
+            <header>
+                <a class="remove" ng-click = "remove()">
+                    <img ng-src="{{cartProduct.image}}" alt="">
+                    <h3>Remove product</h3>
+                </a>
+            </header>
+    
+            <div class="content">
+                <h1>{{cartProduct.figureName}}</h1>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, numquam quis perspiciatis ea ad omnis provident laborum dolore in atque.
+            </div>
+    
+            <footer class="content">
+                <span class="qt-minus" id="{{cartProduct.figureName}}" ng-click="subQt()">-</span>
+                <span class="qt" id="{{cartProduct.figureName}}">{{cartProduct.quantity}}</span>
+                <span class="qt-plus" id="{{cartProduct.figureName}}" ng-click="addQt()">+</span>
+    
+                <h2 class="full-price" id="{{cartProduct.figureName}}FullPrice">
+                    {{cartProduct.price}}€
+                </h2>
+    
+                <h2 class="price">
+                    {{cartProduct.price}}€
+                </h2>
+            </footer>
+        </article>
+    </section>
 </div>
 
 <footer id="site-footer">
 <div class="container clearfix">
 
     <div class="left">
-        <h2 class="subtotal">Subtotal: <span>?</span>€</h2>
-        <h3 class="shipping">Shipping: <span>5.00</span>€</h3>
+        <h2 class="subtotal">Subtotal: <span id="subtotalPrice">?</span>€</h2>
+        <h3 class="shipping">Shipping: <span id="shippingPrice">5.00</span>€</h3>
     </div>
 
     <div class="right">
-        <h1 class="total">Total: <span>?</span>€</h1>
-        <a class="btn">Checkout</a>
+        <h1 class="total">Total: <span id="totalPrice">?</span>€</h1>
+        <a class="btn" ng-click="checkout()">Checkout</a>
     </div>
 
 </div>

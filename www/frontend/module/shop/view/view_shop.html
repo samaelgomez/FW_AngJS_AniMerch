@@ -43,7 +43,7 @@
         <div class="profile__stats">
           <h4 class="profile__stats__info">{{product.price}}€</h4>
         </div>
-        <div class="profile__cta"><a class="button cartButton" id="{{product.figureName}}">Add to your cart</a></div>
+        <div class="profile__cta"><a class="button cartButton" id="{{product.figureName}}" ng-click = "addToCart(product)">Add to your cart</a></div>
         <div class='heartButton heart {{product.liked}}' id="{{product.figureName}}" ng-click = "likeHandler(product, product.liked)"></div>
       </div>
     </section>

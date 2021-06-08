@@ -41,4 +41,17 @@ class cart_dao {
 
         connect::close($conexion);
     }
+
+    public function purchase($data) {
+        $conexion = connect::con();
+
+        foreach ($data[1] as $key => $value) {
+            for ($i=0; $i < $value[1]; $i++) { 
+                $sql = "INSERT INTO purchases (user, figure) VALUES ('".$data[0]."', '".$value[0]."');";
+                mysqli_query($conexion, $sql);
+            }
+        }
+
+        connect::close($conexion);
+    }
 }

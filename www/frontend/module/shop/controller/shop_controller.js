@@ -106,6 +106,10 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
         }
     };
 
+    $scope.addToCart = function(product) {
+        localStorage.setItem('cart' + product.figureName, product.figureName);
+    };
+
     AniMerch.directive("owlCarousel", function() {
         return {
             restrict: 'E',
@@ -139,7 +143,3 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
         }
     ]);
 });
-
-//   $("body").on("click", ".cartButton", function() {
-//     localStorage.setItem('cart' + this.id, this.id);
-//   });

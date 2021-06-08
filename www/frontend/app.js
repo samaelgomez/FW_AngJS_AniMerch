@@ -55,8 +55,26 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                 templateUrl: "frontend/module/auth/view/view_auth.html", 
                 controller: "auth_controller",
                 resolve: {
-                    activate: function () {
+                    update: function () {
                         localStorage.setItem('updatePass', 'updatePass');
+                    }
+                }
+            }).when("/cart", {
+                templateUrl: "frontend/module/cart/view/view_cart.html", 
+                controller: "cart_controller",
+                resolve: {
+                    cartProducts: function (services) {
+                        var LSvalues = [],
+                        keys = Object.keys(localStorage),
+                        i = keys.length;
+
+                        while ( i-- ) {
+                            if (keys[i].startsWith("cart")) {
+                                LSvalues.push(localStorage.getItem(keys[i]));
+                            }
+                        }
+
+                        return services.get('cart', 'loadCart', {cartFigures: LSvalues});
                     }
                 }
             }).otherwise("/home", {

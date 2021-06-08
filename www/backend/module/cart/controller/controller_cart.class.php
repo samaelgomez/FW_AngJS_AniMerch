@@ -14,4 +14,8 @@ class controller_cart {
     function substractStock() {
         common::accessModel('cart_model', 'substractStock', $_POST['cartFigures']);
     }
+
+    function purchase() {
+        common::accessModel('cart_model', 'purchase', [$_POST['username'], $_POST['cartFigures']]);
+    }
 }
