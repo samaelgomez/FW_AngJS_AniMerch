@@ -1,5 +1,16 @@
 var AniMerch = angular.module('AniMerch', ['ngRoute', 'ui.bootstrap.tpls', 'ngAnimate', 'ngTouch', 'angularUtils.directives.dirPagination']);
 
+AniMerch.run(function($rootScope) {
+    $rootScope.toggleLoginButton = true;
+    $rootScope.logout = function() {
+        localStorage.removeItem('username');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userImage');
+        localStorage.removeItem('token');
+    }
+});
+
 AniMerch.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
         $routeProvider
@@ -37,6 +48,14 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                 resolve: {
                     activate: function (services, $route) {
                         return services.get('auth', 'activate', {'token': $route.current.params.token});
+                    }
+                }
+            }).when("/auth/:token", {
+                templateUrl: "frontend/module/auth/view/view_auth.html", 
+                controller: "auth_controller",
+                resolve: {
+                    activate: function () {
+                        localStorage.setItem('updatePass', 'updatePass');
                     }
                 }
             }).otherwise("/home", {

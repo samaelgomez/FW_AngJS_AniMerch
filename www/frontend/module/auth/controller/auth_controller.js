@@ -1,15 +1,14 @@
-AniMerch.controller('auth_controller', function($scope, services_auth, services) {
-    services_auth.printHeaderButton();
-    $scope.toggleAuth = true;
-    $scope.showRecover = false;
-    $scope.showRecoverPass = false;
-    $scope.showAuthForms = true;
-
-    let logoutButton = document.getElementById("logoutButton");
-    let sendRecoverButton = document.getElementById("sendRecoverButton");
-    let updatePassButton = document.getElementById("updatePassButton");
-    let googleLoginButton = document.getElementById("googleLoginButton");
-    let githubLoginButton = document.getElementById("githubLoginButton");
+AniMerch.controller('auth_controller', function($scope, $location, services_auth, services) {
+    if (localStorage.updatePass) {
+        $scope.toggleAuth = false;
+        $scope.showRecoverPass = true;
+        $scope.showAuthForms = false;
+    } else {
+        $scope.toggleAuth = true;
+        $scope.showRecover = false;
+        $scope.showRecoverPass = false;
+        $scope.showAuthForms = true;
+    }
 
     $scope.registerButton = function() {
         const form = document.querySelector('form#registerForm');
@@ -37,45 +36,23 @@ AniMerch.controller('auth_controller', function($scope, services_auth, services)
         services.get('auth', 'recover', {email: email})
         .then(()=>{
             alert('An email has been sent to your address');
+            $scope.showAuthForms = true;
+            $scope.showRecover = false;
         })
     };
 
-    // if(sendRecoverButton !== null) {
-    //     sendRecoverButton.addEventListener('click',(e)=>{
-    //         let email = document.getElementById('recoverFormEmail').value;
-    //         console.log(email);
-    //         friendlyURL('?page=auth&op=recover').then(function(data) {
-    //             ajaxPromise(data, "POST", {email: email});
-    //         })
-    //     })
-    // }
-
-    // if(updatePassButton !== null) {
-    //     updatePassButton.addEventListener('click',(e)=>{
-    //         let pass = document.getElementById('recoverFormPass').value;
-    //         friendlyURL('?page=auth&op=updatePass').then(function(data) {
-    //             ajaxPromise(data, "POST", {pass: pass});
-    //         })
-    //     })
-    // }
-
-    if(googleLoginButton !== null) {
-        googleLoginButton.addEventListener('click',(e)=>{
-            socialLogin('google');
+    $scope.sendUpdatePassButton = function() {
+        let pass = document.getElementById('recoverFormPass').value;
+        let url = $location.path().split('/');
+        services.get('auth', 'updatePass', {pass: pass, token: url[2]})
+        .then(()=>{
+            alert('Your password has been changed successfully');
+            $scope.showAuthForms = true;
+            $scope.toggleAuth = true;
+            $scope.showRecoverPass = false;
+            localStorage.removeItem('updatePass');
         })
-    }
-
-    if(githubLoginButton !== null) {
-        githubLoginButton.addEventListener('click',(e)=>{
-            socialLogin('github');
-        })
-    }
-    
-    if(logoutButton !== null) {
-        logoutButton.addEventListener("click",()=>{
-            changeSession('logout');
-        })
-    }
+    };
 
     $scope.toggleForm = function(form) {
         if (form == 'register') {
@@ -90,61 +67,51 @@ AniMerch.controller('auth_controller', function($scope, services_auth, services)
             $scope.toggleAuth = false;
         }
     };
-});
 
-// function socialLogin(type) {
-//     var config = {
-//         apiKey: apiKeySL,
-//         authDomain: authDomainSL,
-//         databaseURL: databaseURLSL,
-//         projectId: projectIdSL,
-//         storageBucket: storageBucketSL,
-//         messagingSenderId: messagingSenderIdSL,
-//         appId: appIdSL,
-//         measurementId: measurementIdSL
-//     };
-       
-//     firebase.initializeApp(config);
-
-//     if (type == 'google') {
-//         var provider = new firebase.auth.GoogleAuthProvider();
-//         provider.addScope('email');
+    $scope.socialLogin = function(type) {
+        var config = {
+            apiKey: apiKeySL,
+            authDomain: authDomainSL,
+            databaseURL: databaseURLSL,
+            projectId: projectIdSL,
+            storageBucket: storageBucketSL,
+            messagingSenderId: messagingSenderIdSL,
+            appId: appIdSL,
+            measurementId: measurementIdSL
+        };
+           
+        firebase.initializeApp(config);
     
-//         var authService = firebase.auth();
-
-//         authService.signInWithPopup(provider)
-//             .then(function(result) {
-//                 friendlyURL('?page=auth&op=socialLogin').then(function(data) {
-//                     ajaxPromise(data, "POST", {data: [result.user.displayName, result.user.email, result.user.photoURL, 'google']})
-//                     .then(result => {
-//                         changeSession('login', {username: result.username, type: 'client', avatar: result.avatar, email: result.email, token: result.token})
-//                     })
-//                     .catch((e) => {
-//                         console.log(e);
-//                     });
-//                 })
-//             })
-//             .catch(function(e) {
-//                 console.log(e);
-//             });
-//     } else {
-//         var provider = new firebase.auth.GithubAuthProvider();
-//         var authService = firebase.auth();
-
-//         authService.signInWithPopup(provider)
-//         .then(function(result) {
-//             friendlyURL('?page=auth&op=socialLogin').then(function(data) {
-//                 console.log(result.user);
-//                 ajaxPromise(data, "POST", {data: [result.user.displayName, result.user.email, result.user.photoURL, 'github']})
-//                 .then(result => {
-//                     changeSession('login', {username: result.username, type: 'client', avatar: result.avatar, email: result.email, token: result.token})
-//                 })
-//                 .catch((e) => {
-//                     console.log(e);
-//                 });
-//             })
-//         }).catch(function(e) {
-//             console.log(e);
-//         })
-//     }
-// }
+        if (type == 'google') {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('email');
+        
+            var authService = firebase.auth();
+    
+            authService.signInWithPopup(provider)
+                .then(function(result) {
+                    services.get('auth', 'socialLogin', {data: [result.user.displayName, result.user.email, result.user.photoURL, 'google']})
+                    .then(()=>{
+                        services_auth.changeSession({username: result.user.displayName, type: 'client', avatar: result.user.photoURL, email: result.user.email, token: result.user.refreshToken})
+                    })
+                })
+                .catch(function(e) {
+                    console.log(e);
+                });
+        } else {
+            var provider = new firebase.auth.GithubAuthProvider();
+            var authService = firebase.auth();
+    
+            authService.signInWithPopup(provider)
+            .then(function(result) {
+                services.get('auth', 'socialLogin', {data: [result.user.displayName, result.user.email, result.user.photoURL, 'github']})
+                .then(()=>{
+                    services_auth.changeSession({username: result.user.displayName, type: 'client', avatar: result.user.photoURL, email: result.user.email, token: result.user.refreshToken})
+                })
+            })
+            .catch(function(e) {
+                console.log(e);
+            });
+        }
+    };
+});

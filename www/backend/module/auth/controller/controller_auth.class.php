@@ -64,9 +64,7 @@ class controller_auth {
     }
 
     function updatePass() {
-        $url = explode('/', $_SERVER["HTTP_REFERER"]);
-        $token = $url[5];
-        common::accessModel('auth_model', 'updatePass', [$_POST['pass'], $token]);
+        common::accessModel('auth_model', 'updatePass', [$_POST['pass'], $_POST['token']]);
     }
 
     function socialLogin() {

@@ -9,7 +9,7 @@ class mail {
                 $email['fromEmail'] = 'samaelgomezherrera@gmail.com';
                 $email['inputMatter'] = 'Recover password.';
                 $content .= '<h2>Recover password.</h2>';
-                $content .= '<a href = "http://localhost/#/auth/recoverPass/' . $email['token'] . '">Click here to recover your password.</a>';
+                $content .= '<a href = "http://localhost/#/auth/' . $email['token'] . '">Click here to recover your password.</a>';
                 break;
                 //////
             case 'validate';

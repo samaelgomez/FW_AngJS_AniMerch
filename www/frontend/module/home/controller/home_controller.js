@@ -1,4 +1,4 @@
-AniMerch.controller('home_controller', function($scope, $window, banners, categories) {
+AniMerch.controller('home_controller', function($scope, $rootScope, $window, banners, categories) {
 
     let visibleCategories = 3;
     let totalCategories = categories.length;
@@ -11,6 +11,12 @@ AniMerch.controller('home_controller', function($scope, $window, banners, catego
         slideSpeed: 300,
         paginationSpeed: 600,
         items: 1
+    }
+
+    if (localStorage.username) {
+        $rootScope.toggleLoginButton = false;
+    } else {
+        $rootScope.toggleLoginButton = true;
     }
 
     angular.element($window).on('mousewheel', function() {

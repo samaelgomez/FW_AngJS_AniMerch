@@ -66,8 +66,8 @@
               </form>
           </div>
           <br/>
-          <i class="fa fa-google fa-3x" aria-hidden="true" id="googleLoginButton"></i>
-          <i class="fa fa-github fa-3x" aria-hidden="true" id="githubLoginButton"></i>
+          <i class="fa fa-google fa-3x" aria-hidden="true" id="googleLoginButton" ng-click = "socialLogin('google')"></i>
+          <i class="fa fa-github fa-3x" aria-hidden="true" id="githubLoginButton" ng-click = "socialLogin('github')"></i>
           </div>
           <button class="mt-1" id="recoverButton" ng-click = "recoverButton()">Forgot password?</button>
           </div>
@@ -93,7 +93,7 @@
               <input type="password" name="recoverFormPass" placeholder="Password" id="recoverFormPass">
             </div>
 
-            <button type='button' class="btn btn btn-outline-secondary btn-block mt-3" id="updatePassButton">Update password</button>
+            <button type='button' class="btn btn btn-outline-secondary btn-block mt-3" id="updatePassButton" ng-click = "sendUpdatePassButton()">Update password</button>
         </form>
       </div>
     <div id="formContainer"></div>

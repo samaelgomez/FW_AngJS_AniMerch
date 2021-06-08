@@ -20,8 +20,9 @@
 
                 <li class="nav-item"><a class="nav-link" href="#/auth">Contact</a></li>
 
-                <li id="navContainer">
-                </li>
+                <li class="nav-item"><a class="nav-link" href="#/auth" ng-show='toggleLoginButton'>Login</a></li>
+
+                <li class="nav-item"><a class="nav-link" ng-click = "logout()" ng-hide='toggleLoginButton'>Logout</a></li>
 
                 <li class="nav-item"><a class="nav-link cartIcon" href="#/cart"><img src="/frontend/view/images/ShoppingCart.png" width="25" height="25"></a></li>                    
             </ul>
