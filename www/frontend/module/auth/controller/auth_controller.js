@@ -56,12 +56,12 @@ AniMerch.controller('auth_controller', function($scope, $location, services_auth
 
     $scope.toggleForm = function(form) {
         if (form == 'register') {
-            let newActiveTab = angular.element( document.querySelector('#reg'));
+            let newActiveTab = angular.element(document.querySelector('#reg'));
             newActiveTab.addClass('show');
             newActiveTab.addClass('active');
             $scope.toggleAuth = true;
         } else {
-            let newActiveTab = angular.element( document.querySelector('#log'));
+            let newActiveTab = angular.element(document.querySelector('#log'));
             newActiveTab.addClass('show');
             newActiveTab.addClass('active');
             $scope.toggleAuth = false;

@@ -79,6 +79,18 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
         $scope.toggleShowDetails = true;
     };
 
+    $scope.likeHandler = function(product, productLiked) {
+        if (productLiked == '') {
+            services.get('shop', 'addLike', {username: localStorage.getItem('username'), figureName: product.figureName});
+            let likedFigure = angular.element(document.querySelector('#' + product.figureName));
+            likedFigure.addClass('active');
+        } else {
+            services.get('shop', 'removeLike', {username: localStorage.getItem('username'), figureName: product.figureName});
+            let likedFigure = angular.element(document.querySelector('#' + product.figureName));
+            likedFigure.removeClass('active');
+        }
+    };
+
     AniMerch.directive("owlCarousel", function() {
         return {
             restrict: 'E',
@@ -113,60 +125,6 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
     ]);
 });
 
-// function renderProduct(figure) {
-//   let product = `
-//   <div class="profile">
-//     <div class="profile__image" id="${figure.figureName}"><img src="${figure.image}"></div>
-//     <div class="profile__info">
-//       <h4>${figure.figureName}</h4>
-//     </div>
-//     <div class="profile__stats">
-//       <p class="profile__stats__title"></p>
-//       <h5 class="profile__stats__info"></h5>
-//     </div>
-//     <div class="profile__stats">
-//       <h4 class="profile__stats__info">${figure.price}€</h4>
-//     </div>
-//     <div class="profile__cta"><a class="button cartButton" id="${figure.figureName}">Add to your cart</a></div>`;
-//     if (figure.liked == 0 || figure.liked == undefined) {
-//       product +=`<div class='heartButton heart' id="${figure.figureName}"></div>
-//                 </div>`;
-//     } else {
-//       product +=`<div class='heartButton heart active' id="${figure.figureName}"></div>
-//                 </div>`;
-//     }
-//   $('<section></section>').attr({'class':'results-section results--grid'}).html(product).appendTo('#loadedProducts');
-// }
-
-// window.onload = () =>{
-//   $("body").on("click", ".heartButton", function() {
-//     figureNameID = this.getAttribute('id');
-//     if ($(this).hasClass('active')){
-//       $(this).removeClass('active');
-//       friendlyURL('?page=shop&op=removeLike').then(function(data) {
-//         ajaxPromise(data, "POST", {username: localStorage.getItem('username'), figureName: figureNameID});
-//       });
-//     } else {
-//       $(this).addClass('active');
-//       friendlyURL('?page=shop&op=addLike').then(function(data) {
-//         ajaxPromise(data, "POST", {username: localStorage.getItem('username'), figureName: figureNameID});
-//       });
-//     }
-//   });
-
 //   $("body").on("click", ".cartButton", function() {
 //     localStorage.setItem('cart' + this.id, this.id);
 //   });
-
-//   let url = window.location.href.split('/');
-//     if (url[3] == 'auth') {
-//         $("#formRecover").hide();
-//         $("#formRecoverPass").hide();
-//         if (url[4] == 'recoverPass') {
-//             $('.authForms').empty();
-//             $("#reg").hide();
-//             $("#log").hide();
-//             $("#formRecoverPass").show();
-//         }
-//     }
-// }

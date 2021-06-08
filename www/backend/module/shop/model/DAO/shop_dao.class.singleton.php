@@ -15,7 +15,7 @@ class shop_dao {
             $sql = "SELECT * FROM figures";
         } else {
             $sql = "SELECT *, 
-                            IF((SELECT figureName FROM liked WHERE liked.figureName = figures.figureName AND liked.username = '".$username."') IS NULL, FALSE, TRUE) AS liked 
+                            IF((SELECT figureName FROM liked WHERE liked.figureName = figures.figureName AND liked.username = '".$username."') IS NULL, '', 'active') AS liked 
                             FROM figures";
         }
         

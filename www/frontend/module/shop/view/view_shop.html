@@ -44,7 +44,7 @@
           <h4 class="profile__stats__info">{{product.price}}€</h4>
         </div>
         <div class="profile__cta"><a class="button cartButton" id="{{product.figureName}}">Add to your cart</a></div>
-        <div class='heartButton heart' id="{{product.figureName}}"></div>
+        <div class='heartButton heart {{product.liked}}' id="{{product.figureName}}" ng-click = "likeHandler(product, product.liked)"></div>
       </div>
     </section>
     <br/>
@@ -56,7 +56,7 @@
   <div class='shopCarousel'>
     <h3>Most visited figures</h3>
     <data-owl-carousel class="owl-carousel" data-options="owlOptionsTestimonials">
-      <div owl-carousel-item="" class="item" ng-click = "showDetails(product)" ng-repeat="product in allProducts | orderBy:'visits':true | filter:searchBox">
+      <div owl-carousel-item="" class="item" ng-click = "showDetails(product)" ng-repeat="product in allProducts | orderBy:'visits':true">
         <img ng-src="{{product.image}}">
       </div>
     </data-owl-carousel>
