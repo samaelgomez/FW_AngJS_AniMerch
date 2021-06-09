@@ -15,9 +15,17 @@ class cart_bll {
         return self::$_instance;
     }// end_getInstance
 
-    public function loadCart($figures) {
-        return $this -> dao -> loadCart($figures);
+    public function loadCart($username) {
+        return $this -> dao -> loadCart($username);
     }// end_loadCart
+
+    public function addToCart($data) {
+        return $this -> dao -> addToCart($data);
+    }// end_addToCart
+
+    public function removeFromCart($data) {
+        return $this -> dao -> removeFromCart($data);
+    }// end_removeFromCart
 
     public function substractStock($figures) {
         return $this -> dao -> substractStock($figures);

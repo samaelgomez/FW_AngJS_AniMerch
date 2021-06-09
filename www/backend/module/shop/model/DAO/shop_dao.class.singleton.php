@@ -18,15 +18,15 @@ class shop_dao {
                             IF((SELECT figureName FROM liked WHERE liked.figureName = figures.figureName AND liked.username = '".$username."') IS NULL, '', 'active') AS liked 
                             FROM figures";
         }
-        
-        $conexion = connect::con();
+
+        $conexion = db::connect();
         $res = mysqli_query($conexion, $sql);
 
         $data = [];
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $data[] = $row;
         }
-        connect::close($conexion);
+        db::close($conexion);
 
         return $data;
     }
@@ -34,14 +34,14 @@ class shop_dao {
     public function searchProducts($search) {
         $sql = "SELECT * FROM figures WHERE figureName LIKE '%".$search."%';";
         
-        $conexion = connect::con();
+        $conexion = db::connect();
         $res = mysqli_query($conexion, $sql);
 
         $data = [];
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $data[] = $row;
         }
-        connect::close($conexion);
+        db::close($conexion);
 
         return $data;
     }
@@ -49,14 +49,14 @@ class shop_dao {
     public function getBrands() {
         $sql = "SELECT DISTINCT brand FROM figures;";
         
-        $conexion = connect::con();
+        $conexion = db::connect();
         $res = mysqli_query($conexion, $sql);
 
         $data = [];
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $data[] = $row;
         }
-        connect::close($conexion);
+        db::close($conexion);
 
         return $data;
     }
@@ -64,14 +64,14 @@ class shop_dao {
     public function getFranchises() {
         $sql = "SELECT DISTINCT franchise FROM figures;";
         
-        $conexion = connect::con();
+        $conexion = db::connect();
         $res = mysqli_query($conexion, $sql);
 
         $data = [];
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $data[] = $row;
         }
-        connect::close($conexion);
+        db::close($conexion);
 
         return $data;
     }
@@ -80,7 +80,7 @@ class shop_dao {
     {
         $sql = "UPDATE figures SET visits = visits + 1 WHERE ".$filters;
         
-        $conexion = connect::con();
+        $conexion = db::connect();
         $res = mysqli_query($conexion, $sql);
 
         $sql = "SELECT * FROM figures WHERE ".$filters;
@@ -95,7 +95,7 @@ class shop_dao {
             $data = [];
         }
 
-        connect::close($conexion);
+        db::close($conexion);
 
         return $data;
     }
@@ -104,7 +104,7 @@ class shop_dao {
     {
         $sql = "INSERT INTO liked (figureName, username) VALUES ('".$data[1]."', '".$data[0]."');";
         
-        $conexion = connect::con();
+        $conexion = db::connect();
         $res = mysqli_query($conexion, $sql);
         
         $sql = "UPDATE figures SET likes = likes + 1 WHERE figureName = '".$data[1]."'";
@@ -122,7 +122,7 @@ class shop_dao {
             $data = [];
         }
 
-        connect::close($conexion);
+        db::close($conexion);
 
         return $data;
     }
@@ -131,7 +131,7 @@ class shop_dao {
     {
         $sql = "DELETE FROM liked WHERE figureName = '".$data[1]."' AND username = '".$data[0]."';";
         
-        $conexion = connect::con();
+        $conexion = db::connect();
         $res = mysqli_query($conexion, $sql);
         
         $sql = "UPDATE figures SET likes = likes - 1 WHERE figureName = '".$data[1]."'";
@@ -149,7 +149,7 @@ class shop_dao {
             $data = [];
         }
 
-        connect::close($conexion);
+        db::close($conexion);
 
         return $data;
     }

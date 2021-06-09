@@ -45,7 +45,15 @@ AniMerch.factory("services_auth", ['services', function (services) {
     function login(formData) {
         authPetition('login', formData)
         .then(result => {
-            changeSession({username: result[1][0].username, type: result[0], avatar: result[1][0].avatar, email: result[1][0].email, token: result[2]})
+            if (result[1][0].activated == 1) {
+                changeSession({username: result[1][0].username, type: result[0], avatar: result[1][0].avatar, email: result[1][0].email, token: result[2]});
+                localStorage.removeItem('searchFilter');
+                localStorage.removeItem('category');
+                window.location.reload();
+            } else {
+                toastr.error('Your user has not been activated or does not exist!');
+            }
+            
         })
         .catch((e) => {
             console.log(e);
@@ -55,7 +63,7 @@ AniMerch.factory("services_auth", ['services', function (services) {
     function register(formData) {
         authPetition('register', formData)
         .then(result => {
-            changeSession({username: result[1][0].username, type: result[0], avatar: result[1][0].avatar, email: result[1][0].email, token: result[2]})
+            toastr.success('You have received an activation email!');
         })
         .catch((e) => {
             console.log(e);

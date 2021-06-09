@@ -1,5 +1,6 @@
 AniMerch.controller('cart_controller', function($scope, services, cartProducts) {
     $scope.cartProducts = cartProducts;
+    console.log(cartProducts);
 
     cartProducts.forEach(element => {
         localStorage.setItem(element.figureName + 'Stock', element.stock);
@@ -28,11 +29,16 @@ AniMerch.controller('cart_controller', function($scope, services, cartProducts) 
                 }
                 });
             }, 200);
+        services.get('cart', 'removeFromCart', {username: localStorage.username, figure: el.cartProduct.figureName});
+        subtotal = parseFloat(angular.element('#subtotalPrice')[0].innerHTML);
+        total = parseFloat(angular.element('#totalPrice')[0].innerHTML);
+        angular.element('#subtotalPrice')[0].innerHTML = subtotal - parseFloat(el.cartProduct.price);
+        angular.element('#totalPrice')[0].innerHTML = total - parseFloat(el.cartProduct.price);
     };
 
     $scope.addQt = function() {
         if (this.cartProduct.quantity + 1 > localStorage.getItem(this.cartProduct.figureName + 'Stock')) {
-            alert('No more stock!');
+            toastr.error('No more stock!');
         } else {
             this.cartProduct.quantity++;
             currentValue = parseFloat(angular.element('#' + this.cartProduct.figureName + 'FullPrice')[0].innerHTML)
@@ -50,7 +56,7 @@ AniMerch.controller('cart_controller', function($scope, services, cartProducts) 
             angular.element('#' + this.cartProduct.figureName + 'FullPrice')[0].innerHTML = currentValue - parseFloat(this.cartProduct.price) + '€';
             subtotal = parseFloat(angular.element('#subtotalPrice')[0].innerHTML);
             angular.element('#subtotalPrice')[0].innerHTML = subtotal - parseFloat(this.cartProduct.price);
-            angular.element('#totalPrice')[0].innerHTML = subtotal + parseFloat(this.cartProduct.price);
+            angular.element('#totalPrice')[0].innerHTML = subtotal - parseFloat(this.cartProduct.price);
         }
     };
 
@@ -92,7 +98,7 @@ AniMerch.controller('cart_controller', function($scope, services, cartProducts) 
             services.get('cart', 'substractStock', {cartFigures: QTvalues});
             services.get('cart', 'purchase', {username: localStorage.username, cartFigures: QTvalues});
         } else {
-            alert('You must be logged in before proceeding with the purchase!');
+            toastr.error('You must be logged in before proceeding with the purchase!');
             location.replace('#/auth');
         }
     };

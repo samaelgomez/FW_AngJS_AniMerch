@@ -3,6 +3,7 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
     if (localStorage.searchFilter) {
         $scope.products = services.get('shop', 'searchProducts', {search: localStorage.searchFilter})
         .then((result)=>{
+            console.log(result);
             if (result) {
                 $scope.products = result;
             } else {
@@ -96,10 +97,12 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
                 services.get('shop', 'addLike', {username: localStorage.getItem('username'), figureName: product.figureName});
                 let likedFigure = angular.element(document.querySelector('#' + product.figureName));
                 likedFigure.addClass('active');
+                window.location.reload();
             } else {
                 services.get('shop', 'removeLike', {username: localStorage.getItem('username'), figureName: product.figureName});
                 let likedFigure = angular.element(document.querySelector('#' + product.figureName));
                 likedFigure.removeClass('active');
+                window.location.reload();
             }
         } else {
             location.replace('#/auth');
@@ -107,7 +110,13 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
     };
 
     $scope.addToCart = function(product) {
-        localStorage.setItem('cart' + product.figureName, product.figureName);
+        if (localStorage.username) {
+            services.get('cart', 'addToCart', {username: localStorage.getItem('username'), figure: product.figureName});
+            toastr.success('Your product has been added successfully!');
+        } else {
+            location.replace('#/auth');
+        }
+        
     };
 
     AniMerch.directive("owlCarousel", function() {

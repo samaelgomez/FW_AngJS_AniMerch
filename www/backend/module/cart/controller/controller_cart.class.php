@@ -6,9 +6,17 @@ class controller_cart {
     }
 
     function loadCart() {
-        $json = common::accessModel('cart_model', 'loadCart', $_POST['cartFigures']);
+        $json = common::accessModel('cart_model', 'loadCart', $_POST['username']);
 
         echo json_encode($json);
+    }
+
+    function addToCart() {
+        $json = common::accessModel('cart_model', 'addToCart', [$_POST['username'], $_POST['figure']]);
+    }
+
+    function removeFromCart() {
+        $json = common::accessModel('cart_model', 'removeFromCart', [$_POST['username'], $_POST['figure']]);
     }
 
     function substractStock() {

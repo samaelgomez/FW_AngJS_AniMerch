@@ -9,7 +9,6 @@ AniMerch.factory("services", ['$http','$q', function ($http, $q) {
                 method: 'GET',
                 url: serviceBase + module + '&op=' + functi
             }).success(function(data, status, headers, config) {
-                console.log(data);
                 deferred.resolve(data);
             }).error(function(data, status, headers, config) {
                 deferred.reject(data);
@@ -25,7 +24,6 @@ AniMerch.factory("services", ['$http','$q', function ($http, $q) {
                   url: serviceBase + module + '&op=' + functi,
                   data: param
               }).success(function(data, status, headers, config) {
-                 console.log(param);
                  defered.resolve(data);
               }).error(function(data, status, headers, config) {
                  defered.reject(data);

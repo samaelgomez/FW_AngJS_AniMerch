@@ -1,14 +1,20 @@
 var AniMerch = angular.module('AniMerch', ['ngRoute', 'ngTouch', 'angularUtils.directives.dirPagination']);
 
 AniMerch.run(function($rootScope) {
-    $rootScope.toggleLoginButton = true;
+    if (localStorage.getItem('token')) {
+        $rootScope.toggleLoginButton = false;
+    } else {
+        $rootScope.toggleLoginButton = true;
+    }
     $rootScope.searchFigures = '';
+    $rootScope.username = localStorage.getItem('username');
     $rootScope.logout = function() {
         localStorage.removeItem('username');
         localStorage.removeItem('userType');
         localStorage.removeItem('userEmail');
         localStorage.removeItem('userImage');
         localStorage.removeItem('token');
+        window.location.reload();
     }
 });
 
@@ -46,8 +52,11 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                 resolve: {
                 }
             }).when("/auth/activate/:token", {
+                templateUrl: "frontend/module/auth/view/view_auth.html", 
+                controller: "auth_controller",
                 resolve: {
                     activate: function (services, $route) {
+                        toastr.success('Your email has been activated!');
                         return services.get('auth', 'activate', {'token': $route.current.params.token});
                     }
                 }
@@ -64,17 +73,7 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                 controller: "cart_controller",
                 resolve: {
                     cartProducts: function (services) {
-                        var LSvalues = [],
-                        keys = Object.keys(localStorage),
-                        i = keys.length;
-
-                        while ( i-- ) {
-                            if (keys[i].startsWith("cart")) {
-                                LSvalues.push(localStorage.getItem(keys[i]));
-                            }
-                        }
-
-                        return services.get('cart', 'loadCart', {cartFigures: LSvalues});
+                        return services.get('cart', 'loadCart', {username: localStorage.getItem('username')});
                     }
                 }
             }).otherwise("/home", {

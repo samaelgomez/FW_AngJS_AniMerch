@@ -29,17 +29,19 @@
             <form id="registerForm" ng-show='toggleAuth'>
                 <div class="input-box">
                   <i class="fa fa-envelope"></i>
-                  <input type="email" name="registerFormEmail" placeholder="Email">
+                  <input type="email" name="registerFormEmail" placeholder="Email" required>
+                  <span class="error" ng-show="registerForm.input.$error.required">*</span>
+                  <span class="error" ng-show="registerForm.input.$error.email">Incorrect email.</span>
                 </div>
 
                 <div class="input-box">
                   <i class="fa fa-user"></i>
-                  <input type="text" name="registerFormName" placeholder="Username">
+                  <input type="text" name="registerFormName" placeholder="Username" ng-pattern="/^$/" required>
                 </div>
     
                 <div class="input-box">
                   <i class="fa fa-lock"></i>
-                  <input type="password" name="registerFormPass" placeholder="Password">
+                  <input type="password" name="registerFormPass" placeholder="Password" required>
                 </div>
     
                 <button class="btn btn btn-outline-secondary btn-block mt-3" id="registerButton" ng-click = "registerButton()">Register</button>
@@ -49,12 +51,14 @@
               <form id="loginForm" ng-hide='toggleAuth'>
                 <div class="input-box">
                   <i class="fa fa-envelope"></i>
-                  <input type="email" name="loginFormEmail" placeholder="Email">
+                  <input type="email" name="loginFormEmail" placeholder="Email" required>
+                  <span class="error" ng-show="loginForm.input.$error.required">*</span>
+                  <span class="error" ng-show="loginForm.input.$error.email">Incorrect email.</span>
                 </div>
                 
                 <div class="input-box">
                   <i class="fa fa-user"></i>
-                  <input type="text" name="loginFormName" placeholder="Username">
+                  <input type="text" name="loginFormName" placeholder="Username" ng-pattern="/^$/" required>
                 </div>
     
                 <div class="input-box">

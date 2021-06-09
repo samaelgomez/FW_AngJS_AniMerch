@@ -34,10 +34,19 @@ AniMerch.controller('auth_controller', function($scope, $location, services_auth
     $scope.sendRecoverButton = function() {
         let email = document.getElementById('recoverFormEmail').value;
         services.get('auth', 'recover', {email: email})
-        .then(()=>{
-            alert('An email has been sent to your address');
-            $scope.showAuthForms = true;
-            $scope.showRecover = false;
+        .then((data)=>{
+            console.log(data);
+            if (data !== '') {
+                toastr.success('An email has been sent to your address');
+                $scope.showAuthForms = true;
+                $scope.showRecover = false;
+            } else {
+                if (data == 'empty') {
+                    toastr.error('That email has not been registered yet');
+                } else {
+                    toastr.error('You are not allowed to change that password');
+                }
+            }
         })
     };
 
@@ -46,11 +55,12 @@ AniMerch.controller('auth_controller', function($scope, $location, services_auth
         let url = $location.path().split('/');
         services.get('auth', 'updatePass', {pass: pass, token: url[2]})
         .then(()=>{
-            alert('Your password has been changed successfully');
+            toastr.success('Your password has been changed successfully');
             $scope.showAuthForms = true;
             $scope.toggleAuth = true;
             $scope.showRecoverPass = false;
             localStorage.removeItem('updatePass');
+            location.replace('#/auth');
         })
     };
 
@@ -93,6 +103,9 @@ AniMerch.controller('auth_controller', function($scope, $location, services_auth
                     services.get('auth', 'socialLogin', {data: [result.user.displayName, result.user.email, result.user.photoURL, 'google']})
                     .then(()=>{
                         services_auth.changeSession({username: result.user.displayName, type: 'client', avatar: result.user.photoURL, email: result.user.email, token: result.user.refreshToken})
+                        localStorage.removeItem('searchFilter');
+                        localStorage.removeItem('category');
+                        window.location.reload();
                     })
                 })
                 .catch(function(e) {
@@ -107,6 +120,9 @@ AniMerch.controller('auth_controller', function($scope, $location, services_auth
                 services.get('auth', 'socialLogin', {data: [result.user.displayName, result.user.email, result.user.photoURL, 'github']})
                 .then(()=>{
                     services_auth.changeSession({username: result.user.displayName, type: 'client', avatar: result.user.photoURL, email: result.user.email, token: result.user.refreshToken})
+                    localStorage.removeItem('searchFilter');
+                    localStorage.removeItem('category');
+                    window.location.reload();
                 })
             })
             .catch(function(e) {

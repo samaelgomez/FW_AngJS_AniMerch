@@ -15,9 +15,17 @@ class cart_model {
         return self::$_instance;
     }// end_getInstance
 
-    public function loadCart($figures) {
-        return $this -> bll -> loadCart($figures);
+    public function loadCart($username) {
+        return $this -> bll -> loadCart($username);
     }// end_loadCart
+
+    public function addToCart($data) {
+        return $this -> bll -> addToCart($data);
+    }// end_addToCart
+
+    public function removeFromCart($data) {
+        return $this -> bll -> removeFromCart($data);
+    }// end_removeFromCart
 
     public function substractStock($figures) {
         return $this -> bll -> substractStock($figures);

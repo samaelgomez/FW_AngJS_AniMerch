@@ -54,8 +54,11 @@ class controller_auth {
 
     function recover() {
         $token = common::accessModel('auth_model', 'tokenForRecover', $_POST['email']);
-        $email = ['type' => 'recover', 'token' => $token['token'], 'toEmail' => $_POST['email']];
-        mail::setEmail($email);
+        if ($token !== '') {
+            $email = ['type' => 'recover', 'token' => $token, 'toEmail' => $_POST['email']];
+            mail::setEmail($email);
+        }
+        echo $token;
     }
 
     function recoverPass() {

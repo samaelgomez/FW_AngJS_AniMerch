@@ -9,6 +9,14 @@
         <uri>loadCart</uri>
     </function>
     <function>
+        <name>addToCart</name>
+        <uri>addToCart</uri>
+    </function>
+    <function>
+        <name>removeFromCart</name>
+        <uri>removeFromCart</uri>
+    </function>
+    <function>
         <name>substractStock</name>
         <uri>substractStock</uri>
     </function>
