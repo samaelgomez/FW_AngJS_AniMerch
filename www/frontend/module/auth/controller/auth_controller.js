@@ -35,7 +35,6 @@ AniMerch.controller('auth_controller', function($scope, $location, services_auth
         let email = document.getElementById('recoverFormEmail').value;
         services.get('auth', 'recover', {email: email})
         .then((data)=>{
-            console.log(data);
             if (data !== '') {
                 toastr.success('An email has been sent to your address');
                 $scope.showAuthForms = true;

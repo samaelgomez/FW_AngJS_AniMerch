@@ -1,10 +1,6 @@
 <?php
 
 class controller_auth {
-    function list() {
-        common::loadView('topPageAuth.php', VIEW_PATH_AUTH . 'auth.html');
-    }
-
     function auth() {
         if ($_POST['authPetition'] == 'register') {
             $json = common::accessModel('auth_model', 'login', $_POST['data']);

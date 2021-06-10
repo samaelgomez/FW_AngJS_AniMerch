@@ -8,9 +8,9 @@ AniMerch.factory("services", ['$http','$q', function ($http, $q) {
             $http({
                 method: 'GET',
                 url: serviceBase + module + '&op=' + functi
-            }).success(function(data, status, headers, config) {
+            }).success(function(data) {
                 deferred.resolve(data);
-            }).error(function(data, status, headers, config) {
+            }).error(function(data) {
                 deferred.reject(data);
             });
             return promise;
@@ -23,9 +23,9 @@ AniMerch.factory("services", ['$http','$q', function ($http, $q) {
                   method: 'POST',
                   url: serviceBase + module + '&op=' + functi,
                   data: param
-              }).success(function(data, status, headers, config) {
+              }).success(function(data) {
                  defered.resolve(data);
-              }).error(function(data, status, headers, config) {
+              }).error(function(data) {
                  defered.reject(data);
               });
             return promise;
@@ -37,9 +37,9 @@ AniMerch.factory("services", ['$http','$q', function ($http, $q) {
             $http({
                   method: 'POST',
                   url: serviceBase + module + '&op=' + option
-              }).success(function(response, status, headers, config) {
+              }).success(function(response) {
                  defered.resolve(response);
-              }).error(function(error, status, headers, config) {
+              }).error(function(error) {
                  defered.reject(error);
               });
             return promise;

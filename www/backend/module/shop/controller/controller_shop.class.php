@@ -1,10 +1,6 @@
 <?php
 
 class controller_shop {
-    function list() {
-        common::loadView('topPageShop.php', VIEW_PATH_SHOP . 'shop.html');
-    }
-
     function showProducts() {
         if ($_POST['petition']) {
             if ($_POST['petition'] == " ") {

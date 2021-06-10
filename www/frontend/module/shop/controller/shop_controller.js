@@ -3,7 +3,6 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
     if (localStorage.searchFilter) {
         $scope.products = services.get('shop', 'searchProducts', {search: localStorage.searchFilter})
         .then((result)=>{
-            console.log(result);
             if (result) {
                 $scope.products = result;
             } else {
@@ -116,7 +115,6 @@ AniMerch.controller('shop_controller', function($scope, $http, services, product
         } else {
             location.replace('#/auth');
         }
-        
     };
 
     AniMerch.directive("owlCarousel", function() {

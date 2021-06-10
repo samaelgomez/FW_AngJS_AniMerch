@@ -1,9 +1,7 @@
 AniMerch.controller('cart_controller', function($scope, services, cartProducts) {
     $scope.cartProducts = cartProducts;
-    console.log(cartProducts);
 
     cartProducts.forEach(element => {
-        localStorage.setItem(element.figureName + 'Stock', element.stock);
         element.quantity = '1';
         if (angular.element('#subtotalPrice')[0].innerHTML == '?') {
             angular.element('#subtotalPrice')[0].innerHTML = element.price;
@@ -37,7 +35,7 @@ AniMerch.controller('cart_controller', function($scope, services, cartProducts) 
     };
 
     $scope.addQt = function() {
-        if (this.cartProduct.quantity + 1 > localStorage.getItem(this.cartProduct.figureName + 'Stock')) {
+        if (this.cartProduct.quantity + 1 > this.cartProduct.stock) {
             toastr.error('No more stock!');
         } else {
             this.cartProduct.quantity++;
@@ -62,34 +60,13 @@ AniMerch.controller('cart_controller', function($scope, services, cartProducts) 
 
     $scope.checkout = function() {
         if (localStorage.username) {
-            var LSvalues = [],
-            keys = Object.keys(localStorage),
-            i = keys.length;
             var QTvalues = [];
 
             cartProducts.forEach(element => {
                 angular.element('#' + element.figureName).slideUp('fast', function() { 
                 angular.element('#' + element.figureName).remove();
                 });
-                angular.element("#cart").html("<br/><h1>Checkout done successfully!</h1>");
             });
-            
-
-            while ( i-- ) {
-                if (keys[i].startsWith("cart")) {
-                    LSvalues.push(localStorage.getItem(keys[i]));
-                    localStorage.removeItem(keys[i]);
-                }
-            }
-
-            i = keys.length;
-
-            while ( i-- ) {
-                if (keys[i].endsWith("Stock")) {
-                    LSvalues.push(localStorage.getItem(keys[i]));
-                    localStorage.removeItem(keys[i]);
-                }
-            }
 
             cartProducts.forEach(element => {
                 QTvalues = [...QTvalues, [element.figureName, element.quantity]];
@@ -97,6 +74,7 @@ AniMerch.controller('cart_controller', function($scope, services, cartProducts) 
 
             services.get('cart', 'substractStock', {cartFigures: QTvalues});
             services.get('cart', 'purchase', {username: localStorage.username, cartFigures: QTvalues});
+            toastr.success('Checkout done successfully!');
         } else {
             toastr.error('You must be logged in before proceeding with the purchase!');
             location.replace('#/auth');

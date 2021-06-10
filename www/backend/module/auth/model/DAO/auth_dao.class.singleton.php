@@ -19,8 +19,8 @@ class auth_dao {
             $sql = "SELECT * FROM shopusers WHERE username = '".$formData[1][1]."' AND pass = '".$formData[1][2]."'";
         }
         
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
 
         if($res == true) {
             $data = [];
@@ -30,7 +30,7 @@ class auth_dao {
         } else {
             $data = null;
         }
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }
@@ -42,15 +42,15 @@ class auth_dao {
         $sql = "INSERT INTO users (id, email, username, pass, token)
         VALUES ('".$id."', '".$formData[0][1][0]."', '".$formData[0][1][1]."', '".$formData[0][1][2]."', '".$formData[1]."');";
         
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
 
         if($res == true) {
             $data = true;
         } else {
             $data = null;
         }
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }
@@ -62,15 +62,15 @@ class auth_dao {
         $sql = "INSERT INTO shopusers (id, email, username, pass, token)
         VALUES ('".$id."', '".$formData[0][1][0]."', '".$formData[0][1][1]."', '".$formData[0][1][2]."', '".$formData[1]."');";
         
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
 
         if($res == true) {
             $data = true;
         } else {
             $data = null;
         }
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }
@@ -80,15 +80,15 @@ class auth_dao {
 
         $sql = "UPDATE users SET activated = 1 WHERE token = '".$token."';";
         
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
 
         if($res == true) {
             $data = true;
         } else {
             $data = null;
         }
-        db::close($conexion);
+        db::close($connection);
 
         return $token;
     }
@@ -98,15 +98,15 @@ class auth_dao {
 
         $sql = "SELECT token FROM users WHERE email = '".$email."' AND id NOT LIKE 'G%';";
         
-        $conexion = db::connect();
-        $data = mysqli_query($conexion, $sql)->fetch_object();
+        $connection = db::connect();
+        $data = mysqli_query($connection, $sql)->fetch_object();
 
         if($data !== '') {
             $data = $data->token;
         } else {
             $data = null;
         }
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }
@@ -114,15 +114,15 @@ class auth_dao {
     public function updatePass($data) {
         $sql = "UPDATE users SET pass = '".$data[0]."' WHERE token = '".$data[1]."';";
 
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
         
         if($res == true) {
             $data = true;
         } else {
             $data = false;
         }
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }
@@ -136,8 +136,8 @@ class auth_dao {
             $sql = "SELECT * FROM users WHERE email = '".$data[1]."' AND id LIKE 'GH%'";
         }
         
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
 
         if($res == true) {
             $data = "";
@@ -148,7 +148,7 @@ class auth_dao {
             $data = null;
         }
 
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }
@@ -165,8 +165,8 @@ class auth_dao {
             VALUES ('GH".$id."', '".$data[0][1]."', '".$data[0][0]."', ' ', '".$data[0][2]."', '1', '".$data[1]."');";
         }
         
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
 
         if($res == true) {
             $data = true;
@@ -174,7 +174,7 @@ class auth_dao {
             $data = null;
         }
 
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }

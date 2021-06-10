@@ -18,8 +18,8 @@ AniMerch.run(function($rootScope) {
     }
 });
 
-AniMerch.config(['$routeProvider', '$locationProvider',
-    function ($routeProvider, $locationProvider) {
+AniMerch.config(['$routeProvider',
+    function ($routeProvider) {
         $routeProvider
             .when("/home", {
                 templateUrl: "frontend/module/home/view/view_home.html", 
@@ -48,15 +48,14 @@ AniMerch.config(['$routeProvider', '$locationProvider',
                 }
             }).when("/auth", {
                 templateUrl: "frontend/module/auth/view/view_auth.html", 
-                controller: "auth_controller",
-                resolve: {
-                }
+                controller: "auth_controller"
             }).when("/auth/activate/:token", {
                 templateUrl: "frontend/module/auth/view/view_auth.html", 
                 controller: "auth_controller",
                 resolve: {
                     activate: function (services, $route) {
                         toastr.success('Your email has been activated!');
+                        location.replace('#/auth')
                         return services.get('auth', 'activate', {'token': $route.current.params.token});
                     }
                 }

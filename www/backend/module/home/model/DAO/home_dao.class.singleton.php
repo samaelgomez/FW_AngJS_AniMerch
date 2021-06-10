@@ -13,14 +13,14 @@ class home_dao {
     public function select_all_banners() {
         $sql = "SELECT * FROM images WHERE name LIKE 'Banner%'";
         
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
 
         $data = [];
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $data[] = $row;
         }
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }
@@ -28,14 +28,14 @@ class home_dao {
     public function select_all_categories() {
         $sql = "SELECT * FROM images WHERE name NOT LIKE 'Banner%';";
         
-        $conexion = db::connect();
-        $res = mysqli_query($conexion, $sql);
+        $connection = db::connect();
+        $res = mysqli_query($connection, $sql);
 
         $data = [];
         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $data[] = $row;
         }
-        db::close($conexion);
+        db::close($connection);
 
         return $data;
     }
